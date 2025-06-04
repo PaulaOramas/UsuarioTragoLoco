@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nuestra Historia | Trago Loco</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/Site.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+
+</head>
+<body class="fondo-crema">
+
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Carrusel -->
+    <div id="carouselTragoLoco" class="carousel slide" data-bs-ride="carousel" aria-label="Carrusel Nuestra Historia">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="../../imagenes/bienvenida2.png" alt="Bienvenida a Trago Loco" />
+            </div>
+            <div class="carousel-item">
+                <img src="/imagenes/cokmejorado.png" alt="Variedad de tragos" />
+            </div>
+            <div class="carousel-item">
+                <img src="../../imagenes/vodka.jpg" alt="Selección de vodkas" />
+            </div>
+            <div class="carousel-item">
+                <img src="../../imagenes/botellas.jpg" alt="Colección de botellas" />
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselTragoLoco" data-bs-slide="prev" aria-label="Anterior">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselTragoLoco" data-bs-slide="next" aria-label="Siguiente">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <!-- Contenido principal -->
+    <main class="historia-wrapper" role="main">
+        <!-- Creadores -->
+        <section class="creadores" aria-label="Creadores de Trago Loco">
+            <article class="creador-card">
+                <img src="../../imagenes/danahe.jpg" alt="Danahe, cofundadora de Trago Loco" />
+                <h3>Danahé Andrade</h3>
+                <p>Co-fundadora & Especialista en selección de productos</p>
+            </article>
+            <article class="creador-card">
+                <img src="../../imagenes/pau.png" alt="Paula, cofundadora de Trago Loco" />
+                <h3>Paula Ormas</h3>
+                <p>Co-fundadora & Atención al cliente</p>
+            </article>
+        </section>
+
+        <!-- Texto historia -->
+        <section class="historia-texto">
+            <h1>Nuestra Historia</h1>
+            <p class="lead">
+                Bienvenido a <strong>Trago Loco</strong>, donde la pasión por los mejores licores nos llevó a crear un espacio único para los amantes del buen gusto.
+            </p>
+            <p>
+                Nuestra historia comienza en <strong>2024</strong>, cuando decidimos ofrecer productos de alta calidad, seleccionados cuidadosamente de las mejores bodegas y destilerías del mundo.
+                Desde entonces, nos hemos comprometido a brindar experiencias memorables, combinando tradición, calidad y un servicio excepcional.
+            </p>
+            <p>
+                En <strong>Trago Loco</strong> no solo vendemos licores, compartimos momentos, celebraciones y emociones.<br />
+                <em>Gracias por ser parte de nuestra historia.</em>
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function cargarYModificar(selector, url) {
+            fetch(url)
+                .then(res => res.text())
+                .then(data => {
+                    document.querySelector(selector).innerHTML = data;
+
+                    // Luego aplicar estilo directo al span "Trago Loco"
+                    const spanTragoLoco = document.querySelector(`${selector} span.fs-4`);
+                    if (spanTragoLoco) {
+                        spanTragoLoco.style.color = '#6b1e25';
+                        spanTragoLoco.style.fontFamily = "'Pacifico', cursive";
+                    }
+                });
+        }
+
+        cargarYModificar('#header-container', '../../paginas/Shared/Header.html');
+        cargarYModificar('#footer-container', '../../paginas/Shared/Footer.html');
+    </script>
+
+</body>
+</html>

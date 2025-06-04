@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Perfil de Usuario - Trago Loco</title>
+
+    <!-- Fuente Pacifico -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- CSS personalizado -->
+    <link href="../../css/Perfil.css" rel="stylesheet" />
+</head>
+<body class="fondo-crema">
+
+    <!-- Header din�mico -->
+    <div id="header-container"></div>
+
+    <main class="container my-5 p-4 rounded shadow bg-white">
+        <h1 class="text-center mb-4 titulo-principal">Perfil de Usuario</h1>
+
+        <!-- Datos personales -->
+        <section class="mb-5">
+            <h2 class="mb-3 sub-titulo">Datos Personales</h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <p><strong>C�dula/RUC:</strong> <span id="usu_ci_ruc">1723456789</span></p>
+                    <p><strong>Nombre:</strong> <span id="usu_nombre">Juan P�rez</span></p>
+                    <p><strong>Email:</strong> <span id="usu_email">juan.perez@email.com</span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Tel�fono:</strong> <span id="usu_telefono">0998765432</span></p>
+                    <p><strong>Direcci�n:</strong> <span id="usu_direccion">Av. Siempre Viva 123</span></p>
+                    <p><strong>Ciudad:</strong> <span id="usu_ciudad">Quito</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Facturas -->
+        <section>
+            <h2 class="mb-3 sub-titulo">Mis Facturas</h2>
+            <table class="table table-bordered table-striped align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID Factura</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-facturas">
+                    <!-- Aqu� se llenar�n las filas -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Modal detalle factura -->
+        <div class="modal fade" id="modalDetalleFactura" tabindex="-1" aria-labelledby="modalDetalleFacturaLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-morado text-white">
+                        <h5 class="modal-title" id="modalDetalleFacturaLabel">Detalle de Factura</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Unitario</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="detalle-factura-body">
+                                <!-- Detalles din�micos -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer din�mico -->
+    <div id="footer-container" class="mt-5"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Cargar header y footer y modificar texto "Trago Loco"
+        function cargarYModificar(selector, url) {
+            fetch(url)
+                .then(res => res.text())
+                .then(data => {
+                    const modificado = data.replace(
+                        /<span class="fs-4"[^>]*>Trago Loco<\/span>/,
+                        '<span class="fs-4" style="color: #6b1e25; font-family: \'Pacifico\', cursive;">Trago Loco</span>'
+                    );
+                    document.querySelector(selector).innerHTML = modificado;
+                });
+        }
+
+        cargarYModificar('#header-container', '../../paginas/Shared/Header.html');
+        cargarYModificar('#footer-container', '../../paginas/Shared/Footer.html');
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof actualizarUIUsuario === "function") {
+                actualizarUIUsuario();
+            }
+        });
+
+
+        // Datos simulados usuario
+        const usuario = {
+            usu_ci_ruc: "1723456789",
+            usu_nombre: "Juan P�rez",
+            usu_email: "juan.perez@email.com",
+            usu_telefono: "0998765432",
+            usu_direccion: "Av. Siempre Viva 123",
+            usu_ciudad: "Quito"
+        };
+
+        // Datos simulados facturas y detalles
+        const facturas = [
+            {
+                id: 101, fecha: "2025-05-20", total: 125.50, detalles: [
+                    { producto: "Vino Tinto", cantidad: 2, precio: 30.00 },
+                    { producto: "Whisky", cantidad: 1, precio: 65.50 }
+                ]
+            },
+            {
+                id: 102, fecha: "2025-05-25", total: 78.00, detalles: [
+                    { producto: "Cerveza Artesanal", cantidad: 3, precio: 18.00 },
+                    { producto: "Ron", cantidad: 1, precio: 24.00 }
+                ]
+            }
+        ];
+
+        // Cargar datos usuario en DOM
+        document.getElementById('usu_ci_ruc').innerText = usuario.usu_ci_ruc;
+        document.getElementById('usu_nombre').innerText = usuario.usu_nombre;
+        document.getElementById('usu_email').innerText = usuario.usu_email;
+        document.getElementById('usu_telefono').innerText = usuario.usu_telefono;
+        document.getElementById('usu_direccion').innerText = usuario.usu_direccion;
+        document.getElementById('usu_ciudad').innerText = usuario.usu_ciudad;
+
+        // Funci�n para llenar tabla facturas
+        function cargarFacturas() {
+            const tbody = document.getElementById('tabla-facturas');
+            tbody.innerHTML = "";
+            facturas.forEach(factura => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+              <td>${factura.id}</td>
+              <td>${factura.fecha}</td>
+              <td>$${factura.total.toFixed(2)}</td>
+              <td>
+                <button class="btn btn-sm btn-outline-morado" onclick="mostrarDetalle(${factura.id})">Ver detalles</button>
+              </td>
+            `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Mostrar detalles en modal
+        function mostrarDetalle(idFactura) {
+            const factura = facturas.find(f => f.id === idFactura);
+            const tbodyDetalle = document.getElementById('detalle-factura-body');
+            tbodyDetalle.innerHTML = "";
+            factura.detalles.forEach(item => {
+                const subtotal = item.cantidad * item.precio;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+              <td>${item.producto}</td>
+              <td>${item.cantidad}</td>
+              <td>$${item.precio.toFixed(2)}</td>
+              <td>$${subtotal.toFixed(2)}</td>
+            `;
+                tbodyDetalle.appendChild(tr);
+            });
+            const modal = new bootstrap.Modal(document.getElementById('modalDetalleFactura'));
+            modal.show();
+        }
+
+        cargarFacturas();
+
+
+    </script>
+
+</body>
+</html>

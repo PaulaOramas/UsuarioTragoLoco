@@ -1,0 +1,992 @@
+/* ======== ESTILOS GENERALES ======== */
+/* Estilo general del fondo */
+/* ====== FONDO GENERAL ====== */
+body {
+    background-color: indianred; /* Color crema claro */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 0;
+}
+
+    /* Capa de suavidad */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(4px);
+        z-index: -1;
+    }
+
+.fondo-crema {
+    background-color: #F5F5DC !important; /* Color crema */
+}
+
+
+
+.catalogo {
+    padding: 40px;
+}
+
+.bienvenida {
+    font-size: 24px;
+    color: #6b1e25;
+    display: block;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+
+/* ======= ESTILO MENÚ HAMBURGUESA ======= */
+.navbar {
+    background-color: #4c145c;
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+    position: relative;
+}
+
+.menu-toggle {
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.menu {
+    display: none;
+    flex-direction: column;
+    background-color: #4c145c;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+}
+
+    .menu a {
+        color: white;
+        padding: 10px;
+        text-decoration: none;
+        border-top: 1px solid #8c2630;
+    }
+
+        .menu a:hover {
+            background-color: #8c2630;
+        }
+/* Nuevo estilo para el carrusel de "Nuestra Historia" */
+#carouselTragoLoco {
+  max-width: 1200px;
+  margin: 2rem auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+#carouselTragoLoco .carousel-inner {
+  border-radius: 12px;
+}
+
+#carouselTragoLoco .carousel-item img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Estilo para los controles del carrusel */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  padding: 10px;
+}
+
+/* Suavizar transición del carrusel */
+.carousel-item {
+  transition: transform 0.8s ease-in-out;
+}
+
+.creador-card h3,
+.historia-texto h1 {
+  font-family: 'Georgia', serif;
+  font-size: 2rem;
+  color: #6b1e25;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+
+.btn-morado {
+    background-color: #4b145b !important;
+    color: #fff !important;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+
+    .btn-morado:hover {
+        background-color: #4c145c;
+    }
+
+
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: scale(1.05) translateY(-5px);
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+        z-index: 10;
+    }
+
+
+.welcome-banner img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    margin-top: 40px; /* Ajusta este valor para que baje más o menos */
+}
+
+
+/* Mejorar los botones */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-size: 1.1rem;
+    padding: 12px 20px;
+    border-radius: 5px;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+/* Mejorar los campos de entrada */
+.form-control-lg {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+}
+
+/* Mejorar la tabla */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2;
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+.table-dark th {
+    background-color: #343a40;
+    color: white;
+}
+
+
+/* Botones con estilo */
+.btn-lg {
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+    .btn-lg:hover {
+        opacity: 0.9;
+    }
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+
+/* Estilo para las tarjetas del acordeón FAQ */
+.faq-card {
+  background-color: #f1f1f1;
+  border-left: 5px solid #6f42c1;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.faq-card:hover {
+  box-shadow: 0 0 12px rgba(111, 66, 193, 0.2);
+}
+
+.accordion-button {
+  font-weight: 600;
+  color: #333;
+  background-color: #e9e9e9;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 0.25rem;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #d1c4e9;
+  color: #000;
+}
+
+.accordion-body {
+  background-color: #fdfdfd;
+  color: #444;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+}
+ 
+
+
+/* Estilo visual para bloques oscuros de consumo responsable */
+
+.intro-responsable {
+  background-color: #eeeeee;
+  color: #333 !important; /* Forzar texto oscuro */
+  border-left: 8px solid #a084dc;
+}
+
+.intro-responsable h2,
+.intro-responsable p {
+  color: #333 !important; /* Forzar encabezado y párrafos a color oscuro */
+}
+
+/* Estilo visual para bloques de recomendaciones */
+/* Estilo limpio y claro para consumo responsable */
+.bloque-responsable {
+  background-color: #eeeeee; /* similar al FAQ */
+  color: #333;
+  border-left: 5px solid #6f42c1; /* morado */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.bloque-responsable:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(111, 66, 193, 0.1);
+}
+
+.bloque-responsable h5 {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.bloque-responsable p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+
+main.container {
+  background-color: var(--cat-bg);
+  padding: 2rem 1rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(107, 30, 37, 0.3);
+  color: var(--cat-texto);
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; /* CENTRAR TODO EL TEXTO DENTRO DEL CONTENEDOR */
+}
+
+main.container h2 {
+  color: var(--cat-texto);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center; /* Asegura el título centrado */
+}
+
+main.container p.text-muted {
+  color: var(--vino-claro);
+  text-align: center; /* Centra el texto cuando no hay productos */
+}
+
+#contenedorProductos {
+  text-align: center; /* Centrar el contenido de productos (cards) */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centra horizontalmente las cards */
+  gap: 1.5rem;
+}
+
+.card {
+  display: inline-block; /* Para que el texto dentro se centre y cards alineadas */
+  max-width: 280px;
+  margin: 0 auto;
+}
+#logo {
+  max-width: 180px;   /* Aumenta el tamaño máximo */
+  width: 100%;        /* Que ocupe el ancho disponible hasta max-width */
+  height: auto;       /* Mantiene proporción */
+  margin-bottom: 1.5rem; /* Espacio debajo */
+  display: block;
+  margin-left: auto;
+  margin-right: auto; /* Centrar horizontalmente */
+}
+
+
+
+  :root {
+      --vino: #6b1e25;
+      --vino-claro: #a44b5a;
+      --crema: #f5f5dc;
+      --dorado-suave: #d4af37;
+      --texto: #4b145b;
+      --fondo: #fff8f0;
+      --sombra-suave: rgba(107, 30, 37, 0.15);
+      --cat-bg: #462f34; /* fondo oscuro más suave */
+      --cat-texto: #f1c0c3; /* texto rosado claro */
+      --cat-hover: #a44b5a;
+    }
+
+
+
+
+  
+
+ 
+    nav.navbar {
+      background: linear-gradient(to right, var(--crema), var(--vino), var(--crema));
+      font-family: 'Raleway', sans-serif;
+      box-shadow: 0 4px 12px rgba(107,30,37,0.15);
+      padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8rem;
+      color: var(--vino) !important;
+      user-select: none;
+    }
+
+    .navbar-brand img {
+      height: 40px;
+    }
+
+    .nav-link {
+      color: var(--vino);
+      font-weight: 600;
+      transition: color 0.25s ease;
+      user-select: none;
+    }
+    .nav-link:hover, .nav-link:focus {
+      color: var(--vino-claro);
+      text-decoration: underline;
+      outline: none;
+    }
+
+    .badge {
+      min-width: 20px;
+      height: 20px;
+      padding: 0 7px;
+      font-weight: 700;
+      line-height: 20px;
+      font-size: 0.75rem;
+      background: var(--dorado-suave);
+      color: var(--vino);
+      box-shadow: 0 0 8px var(--dorado-suave);
+    }
+
+    /* Video grande al inicio ocupa todo el viewport alto */
+    .video-inicio {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      object-position: center center;
+      user-select: none;
+      display: block;
+      margin-bottom: 3rem;
+    }
+
+    /* Contenedor filtros */
+    .filtros-container {
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+    .filtros-container select,
+    .filtros-container input {
+      flex: 1;
+      border-radius: 20px;
+      border: 2px solid var(--vino);
+      padding: 0.8rem 1.2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--vino);
+      box-shadow: inset 0 2px 5px rgba(255,255,255,0.3);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: text;
+    }
+    .filtros-container select:focus,
+    .filtros-container input:focus {
+      border-color: var(--vino-claro);
+      box-shadow: 0 0 12px var(--vino-claro);
+      outline: none;
+      background: #fff6f5;
+    }
+
+
+     /*PRODCUTOS */
+    /* Catálogo con fondo oscuro más suave y centrado */
+/* Contenedor principal del catálogo */
+main.container {
+background-color: rgba(240, 240, 240, 0.8);/* contenedor blanco */
+  padding: 2rem 1rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(107, 30, 37, 0.3); /* sombra profunda */
+  color: var(--cat-texto, #4b145b);
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Título del catálogo */
+main.container h2 {
+  color: #4b145b;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+main.container p.text-muted {
+  color: var(--vino-claro, #a44b5a);
+  text-align: center;
+}
+
+/* Estilo para las tarjetas de productos */
+.card {
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  background-color: #ffffff;
+  color: #4b145b;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  max-width: 360px;        /* más ancha */
+  min-height: 520px;       /* más alta */
+  padding-bottom: 1rem;    /* para dejar espacio interno */
+  margin: 1rem auto;       /* separación entre tarjetas */
+}
+
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 16px 32px rgba(164, 75, 90, 0.4);
+  outline: none;
+}
+/* Imágenes uniformes */
+    .card img {
+        width: 100%;
+        height: 280px; /* Ajusta el alto si lo deseas */
+        object-fit: cover;
+        object-position: center;
+        border-radius: 20px 20px 0 0;
+        background-color: #f1f1f1;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        display: block;
+    }
+
+
+
+/* Título del producto en negro */
+.card-title {
+  font-size: 1.3rem; /* Aumenta tamaño del nombre del producto */
+  color: #000000;
+  margin-top: 0.5rem;
+}
+.card-text.fw-bold {
+  font-size: 1.2rem; /* Aumenta tamaño del precio */
+}
+
+.text-muted.small {
+  font-size: 0.95rem; /* Ajusta texto de stock si deseas */
+}
+/* Botón "Ver más" morado */
+.btn-outline-light {
+  background-color: #4b145b;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-outline-light:hover {
+  background-color: #641f77;
+  color: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+  .btn-morado {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .filtros-container {
+    flex-direction: column;
+  }
+
+  .filtros-container select,
+  .filtros-container input {
+    flex: unset;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  main.container {
+    padding: 1rem;
+  }
+}
+
+
+
+
+    body.verificacion-body {
+      background-image: url('../imagenes/colores.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #1a1a1a;
+      color: white;
+      text-align: center;
+      padding-top: 80px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #form-wrapper {
+      max-width: 400px;
+      width: 90%;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgb(107 30 37 / 0.3);
+      text-align: center;
+      color: #1a1a1a;
+    }
+
+    #logo {
+      max-width: 180px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 1.5rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Inputs */
+    #formEdad input.form-control {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2em;
+      background-color: #fffbe6;
+      border: 2px solid purple;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border-radius: 6px;
+    }
+
+    /* Botón */
+    #formEdad button.btn-verificar {
+      background-color: #8B0000;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-size: 1.1em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+
+    #formEdad button.btn-verificar:hover {
+      background-color: mediumpurple;
+    }
+
+    /* Mensaje de error */
+    #mensajeError {
+      margin-top: 1rem;
+      color: #b00000;
+      font-weight: bold;
+      min-height: 1.5em;
+    }
+
+    /* Responsive: reducir tamaño de inputs en pantallas muy pequeñas */
+    @media (max-width: 400px) {
+      #formEdad input.form-control {
+        font-size: 1em;
+        padding: 0.4rem;
+      }
+      #formEdad button.btn-verificar {
+        font-size: 1em;
+        padding: 0.5rem;
+      }
+    }
+ 
+
+    /* DETALLE */
+
+
+    /* Ajuste para la sección de detalle de producto */
+#contenedorDetalle {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#contenedorDetalle img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+#contenedorDetalle h2 {
+  font-size: 2rem;
+  color: #4b145b;
+  margin-bottom: 1rem;
+}
+
+#contenedorDetalle p.lead {
+  font-size: 1.15rem;
+  color: #555;
+}
+
+#contenedorDetalle h4 {
+  font-size: 1.5rem;
+  color: #000;
+  margin-bottom: 1rem;
+}
+
+#contenedorDetalle input[type="number"] {
+  max-width: 120px;
+  display: inline-block;
+}
+
+#contenedorDetalle .btn {
+  font-size: 1.1rem;
+  padding: 10px;
+}
+
+
+
+
+   /* Logign */
+     .login-container {
+      background: #fff;
+      padding: 2rem 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(107, 30, 37, 0.15);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .login-container h2 {
+      font-family: 'Pacifico', cursive;
+      color: #6b1e25;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+    }
+
+    .btn-register {
+      background-color: #6b1e25;
+      color: #f5f5dc;
+      font-weight: 700;
+      border-radius: 30px;
+      padding: 0.6rem 1.5rem;
+      transition: background-color 0.3s ease;
+      border: none;
+      margin-top: 1rem;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .btn-register:hover,
+    .btn-register:focus {
+      background-color: #a44b5a;
+      color: #fff;
+      outline: none;
+      box-shadow: 0 0 12px #a44b5aaa;
+    }
+
+    .btn-volver {
+      background: transparent;
+      border: none;
+      color: #6b1e25;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      text-decoration: underline;
+    }
+
+    .btn-volver:hover {
+      color: #a44b5a;
+    }
+
+
+/* PERFIL
+*/
+
+body.fondo-crema {
+    background-color: #f5f5dc;
+    font-family: 'Raleway', sans-serif;
+    color: #4b145b;
+}
+
+/* Títulos */
+.titulo-principal {
+    font-family: 'Pacifico', cursive;
+    color: #6b1e25;
+    font-weight: 700;
+}
+
+.sub-titulo {
+    color: #6b1e25;
+    font-weight: 600;
+    border-left: 5px solid #6b1e25;
+    padding-left: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Tabla */
+/* Tabla morada */
+.table-bordered {
+    border: 2px solid #6b1e25;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #f0e6f0; /* morado muy claro */
+}
+
+.table-striped > tbody > tr:nth-of-type(even) {
+    background-color: #faf5fb; /* casi blanco con tintes lilas */
+}
+
+.table-dark thead {
+    background-color: #6b1e25; /* morado oscuro */
+    color: #f5f5dc; /* crema claro */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #a44b5a33; /* morado transparente suave al pasar mouse */
+    cursor: pointer;
+}
+
+/* Encabezados y celdas */
+.table th, .table td {
+    border-color: #6b1e25;
+    vertical-align: middle;
+    color: #4b145b;
+    font-weight: 600;
+}
+
+/* Botón detalles morado */
+.btn-outline-morado {
+    color: #6b1e25;
+    border-color: #6b1e25;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .btn-outline-morado:hover {
+        background-color: #6b1e25;
+        color: #f5f5dc;
+        text-decoration: none;
+    }
+
+
+/* Modal header */
+.bg-morado {
+    background-color: #6b1e25 !important;
+    color: #f5f5dc !important;
+}
+
+/* Modal botón cerrar */
+.btn-close-white {
+    filter: invert(1);
+}
+
+/* Datos personales estilo */
+section.mb-5 p {
+    font-size: 1.05rem;
+    color: #4b145bcc;
+}
+
+/* Detalles factura en modal */
+.table-bordered th, .table-bordered td {
+    border: 1.5px solid #6b1e25;
+    vertical-align: middle;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .titulo-principal {
+        font-size: 2rem;
+    }
+
+    .sub-titulo {
+        font-size: 1.2rem;
+    }
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background: #fff8f0;
+    color: #4b145b;
+    margin: 0;
+    padding: 0;
+}
+
+/* Carrusel mejorado */
+#carouselTragoLoco {
+    max-width: 1200px;
+    margin: 2rem auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+    #carouselTragoLoco .carousel-item img {
+        width: 100%;
+        height: 480px;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        margin: 0 auto;
+    }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    padding: 10px;
+}
+
+/* Contenedor general */
+.historia-wrapper {
+    max-width: 1200px;
+    margin: 3rem auto 5rem;
+    gap: 3rem;
+    padding: 0 1rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+/* Sección creadores */
+.creadores {
+    flex: 1 1 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.creador-card {
+    background: #f7ebe8;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(107, 30, 37, 0.1);
+    padding: 1rem 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+    .creador-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 25px rgba(107, 30, 37, 0.3);
+    }
+
+    .creador-card img {
+        width: 100%;
+        max-width: 180px;
+        height: auto;
+        border-radius: 10px;
+        border: 4px solid #a44b5a;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 10px rgba(107, 30, 37, 0.15);
+        object-fit: cover;
+    }
+
+    .creador-card h3,
+    .historia-texto h1 {
+        font-family: 'Georgia', serif;
+        font-size: 2rem;
+        color: #6b1e25;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .creador-card p {
+        font-size: 1rem;
+        color: #4b145bcc;
+        margin: 0;
+    }
+
+/* Historia texto */
+.historia-texto {
+    flex: 1 1 60%;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #6b1e25dd;
+}
+
+    .historia-texto p.lead {
+        font-weight: 700;
+        margin-bottom: 1.25rem;
+    }
+
+    .historia-texto p {
+        margin-bottom: 1.2rem;
+    }
+
+@media (max-width: 900px) {
+    .historia-wrapper {
+        flex-direction: column;
+    }
+
+    .creadores, .historia-texto {
+        flex: 1 1 100%;
+    }
+
+    .creador-card {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    .historia-texto h1 {
+        font-size: 1.8rem;
+    }
+}
+

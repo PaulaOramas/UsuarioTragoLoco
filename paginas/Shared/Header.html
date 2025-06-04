@@ -1,0 +1,104 @@
+<style>
+    .nav-link {
+        color: #000;
+        font-weight: 600;
+        transition: color 0.25s ease;
+    }
+
+        .nav-link:hover,
+        .nav-link:focus {
+            color: #333;
+            text-decoration: underline;
+            outline: none;
+        }
+
+    .badge {
+        min-width: 18px;
+        height: 18px;
+        padding: 0 6px;
+        font-weight: 700;
+        line-height: 18px;
+    }
+
+    @media (max-width: 991.98px) {
+        .dropdown-divider {
+            border-color: #666;
+        }
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light px-3"
+     style="background: linear-gradient(to right, #ffffff, #cccccc, #ffffff); font-family: 'Raleway', sans-serif;">
+
+   <div class="container-fluid">
+    <!-- Logo + Nombre -->
+    <a class="navbar-brand d-flex align-items-center gap-2" href="../Productos/Index.html" aria-label="Ir a la página principal">
+      <img src="/imagenes/logo.png" alt="Logo Trago Loco" style="height: 40px;" />
+      <span class="fs-4" style="color: #000; font-family: 'Pacifico', cursive;">Trago Loco</span>
+    </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar menú de navegación">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav align-items-lg-center gap-lg-3">
+                <li id="nav-login" class="nav-item">
+                    <a class="nav-link" href="../Cuenta/Login.html">Login</a>
+                </li>
+                <li id="nav-usuario" class="nav-item dropdown d-none">
+                    <a class="nav-link dropdown-toggle" href="#" id="usuarioDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span id="nombreUsuario"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="usuarioDropdown">
+                        <li><a class="dropdown-item" href="../Cuenta/Perfil.html">Mi Perfil</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="../Informacion/NuestraHistoria.html">Nuestra Historia</a></li>
+                <li class="nav-item"><a class="nav-link" href="../Informacion/ConsumoResponsable.html">Consumo Responsable</a></li>
+                <li class="nav-item"><a class="nav-link" href="../Informacion/Contactanos.html">Contáctanos</a></li>
+                <li class="nav-item d-lg-none"><hr class="dropdown-divider my-2" /></li>
+                <li class="nav-item position-relative">
+                    <a class="nav-link" href="../Carrito/Index.html" aria-label="Ver carrito">
+                        🛒
+                        <span id="carritoIndicator"
+                              class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle d-none"
+                              style="width: 10px; height: 10px;" aria-hidden="true"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center ms-3">
+                <span id="saludo-usuario" class="fw-semibold text-dark" style="display:none;"></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const usuarioLogueado = localStorage.getItem('usuarioNombre'); // ej: "Juan Pérez"
+
+        if (usuarioLogueado) {
+            // Ocultar Login
+            document.getElementById('nav-login').classList.add('d-none');
+            // Mostrar usuario con nombre
+            const navUsuario = document.getElementById('nav-usuario');
+            navUsuario.classList.remove('d-none');
+            document.getElementById('nombreUsuario').innerText = usuarioLogueado;
+        } else {
+            // Usuario no logueado
+            document.getElementById('nav-login').classList.remove('d-none');
+            document.getElementById('nav-usuario').classList.add('d-none');
+        }
+
+        // Cerrar sesión - limpia localStorage y recarga página
+        document.getElementById('logout').addEventListener('click', function (e) {
+            e.preventDefault();
+            localStorage.removeItem('usuarioNombre');
+            location.reload();
+        });
+    });
+</script>

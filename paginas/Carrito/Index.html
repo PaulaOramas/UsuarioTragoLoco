@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tu Carrito | Trago Loco</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../../css/Site.css" rel="stylesheet" />
+
+  <style>
+    .historia-fondo {
+      background-color: #4c145c; /* fondo morado */
+      padding: 1rem 1.5rem;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+      color: white !important; /* texto blanco */
+      text-align: center;
+    }
+
+    .card-producto {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      border-radius: 15px;
+      background: white;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 900px;
+      box-sizing: border-box;
+      color: black;
+      margin: auto;
+    }
+
+    .card-producto img {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .info-producto {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .info-producto h5 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .precio {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+      margin-bottom: 1rem;
+    }
+
+    .acciones-carrito label {
+      font-weight: 600;
+    }
+
+    .subtotal {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-top: 0.75rem;
+    }
+
+    .btn-eliminar {
+      color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .btn-eliminar:hover {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    #contenedorCarrito {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    #opcionesPago {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: black;
+      margin-top: 2rem;
+      text-align: right;
+    }
+
+    #opcionesPago button, #opcionesPago a {
+      font-size: 1.25rem;
+      padding: 0.5rem 1.5rem;
+    }
+
+    @media (max-width: 576px) {
+      .card-producto {
+        flex-direction: column;
+        max-width: 100%;
+        text-align: center;
+      }
+
+      .card-producto img {
+        width: 100%;
+        height: auto;
+      }
+
+      .acciones-carrito {
+        justify-content: center;
+      }
+
+      #opcionesPago {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body class="fondo-crema">
+  <div id="header-container"></div>
+
+<main class="container mt-5 mb-5">
+<section class="historia-fondo text-center p-3 rounded-4 mb-4 shadow-sm btn-outline-light"> 
+
+
+      <h2 class="text-white fw-bold mb-0">🛒 Tu Carrito</h2>
+    </section>
+
+  <div id="contenedorCarrito"></div>
+  <div id="opcionesPago"></div>
+</main>
+
+
+  <div id="footer-container" class="mt-5"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      const usuario = localStorage.getItem("usuario");
+      const contenedor = document.getElementById("contenedorCarrito");
+      const opcionesPago = document.getElementById("opcionesPago");
+
+      fetch('../../paginas/Shared/Header.html')
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById('header-container').innerHTML = data;
+          actualizarIndicadorCarrito();
+        });
+
+      fetch('../../paginas/Shared/Footer.html')
+        .then(res => res.text())
+        .then(data => document.getElementById('footer-container').innerHTML = data);
+
+      function actualizarIndicadorCarrito() {
+        const indicador = document.getElementById("carritoIndicator");
+        if (!indicador) return;
+        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        indicador.classList.toggle("d-none", carrito.length === 0);
+      }
+
+      function renderCarrito() {
+        contenedor.innerHTML = "";
+
+        if (carrito.length === 0) {
+          contenedor.innerHTML = `
+            <div class="alert alert-info text-center">
+              🛒 Tu carrito está vacío. ¡Agrega productos desde el catálogo!
+            </div>
+          `;
+          opcionesPago.innerHTML = "";
+          return;
+        }
+
+        let total = 0;
+
+        carrito.forEach((item, index) => {
+          const cantidad = item.CANTIDAD || 0;
+          const precio = item.PROD_PRECIO || 0;
+          const subtotal = precio * cantidad;
+          total += subtotal;
+
+          const card = document.createElement("div");
+          card.className = "card-producto";
+          card.innerHTML = `
+            <div class="text-center me-md-4 mb-3 mb-md-0">
+              <img src="${item.PROD_IMG}" alt="${item.PROD_NOMBRE}" />
+            </div>
+            <div class="info-producto">
+              <h5>${item.PROD_NOMBRE}</h5>
+              <p class="precio">$${precio.toFixed(2)}</p>
+              <div class="acciones-carrito">
+                <label class="me-2">Cantidad:</label>
+                <button class="btn btn-outline-danger btn-sm" onclick="modificarCantidad(${index}, -1)">-</button>
+                <span class="mx-2">${cantidad}</span>
+                <button class="btn btn-outline-success btn-sm" onclick="modificarCantidad(${index}, 1)">+</button>
+              </div>
+              <p class="subtotal">Subtotal: $${subtotal.toFixed(2)}</p>
+              <button class="btn btn-outline-danger btn-sm btn-eliminar" onclick="eliminarProducto(${index})">🗑 Eliminar</button>
+            </div>
+          `;
+          contenedor.appendChild(card);
+        });
+
+        opcionesPago.innerHTML = `
+          <h4>Total: $${total.toFixed(2)}</h4>
+          ${
+            usuario
+              ? '<button class="btn btn-success fw-semibold mt-3" onclick="pagar()">💳 Pagar</button>'
+              : '<a href="../Cuenta/Login.html" class="btn btn-warning fw-semibold mt-3">🔐 Inicia sesión para pagar</a>'
+          }
+        `;
+      }
+
+      window.modificarCantidad = (index, cambio) => {
+        carrito[index].CANTIDAD += cambio;
+        if (carrito[index].CANTIDAD <= 0) carrito.splice(index, 1);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        renderCarrito();
+        actualizarIndicadorCarrito();
+      };
+
+      window.eliminarProducto = (index) => {
+        carrito.splice(index, 1);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        renderCarrito();
+        actualizarIndicadorCarrito();
+      };
+
+      window.pagar = () => {
+        if (!carrito.length) {
+          alert("❗ No tienes productos en el carrito.");
+          return;
+        }
+
+        const total = carrito.reduce((sum, p) => sum + p.PROD_PRECIO * p.CANTIDAD, 0);
+        const iva = total * 0.12;
+        const totalConIva = total + iva;
+
+        alert(`✅ ¡Gracias por tu compra!\n\nSubtotal: $${total.toFixed(2)}\nIVA (12%): $${iva.toFixed(2)}\nTotal: $${totalConIva.toFixed(2)}`);
+        localStorage.removeItem("carrito");
+        actualizarIndicadorCarrito();
+        setTimeout(() => {
+          window.location.href = "../Productos/Index.html";
+        }, 1000);
+      };
+
+      renderCarrito();
+    });
+  </script>
+</body>
+</html>

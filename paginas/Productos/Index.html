@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Inicio | Trago Loco</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../css/Site.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      #main-content {
+        display: none;
+      }
+      #main-content.visible {
+        display: block;
+      }
+      body {
+        background-color: #000;
+      }
+      #puzzle-overlay {
+        position: fixed;
+        inset: 0;
+        background: url("/imagenes/coqtel.gif") center center no-repeat;
+        background-size: cover;
+        z-index: 11000;
+        user-select: none;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body class="fondo-crema">
+    <div id="puzzle-overlay" aria-hidden="true" role="presentation"></div>
+
+    <div id="main-content">
+      <div id="header-container"></div>
+
+      <video class="video-inicio" autoplay muted loop playsinline>
+        <source src="/imagenes/GIN COCKTAIL B ROLL.mp4" type="video/mp4" />
+        Tu navegador no soporta video HTML5.
+      </video>
+
+      <div class="filtros-container">
+        <select
+          id="filtroCategoria"
+          aria-label="Filtrar productos por categoría"
+        >
+          <option value="">Todas las categorías</option>
+        </select>
+        <input
+          id="busquedaNombre"
+          type="search"
+          placeholder="Buscar producto por nombre..."
+          aria-label="Buscar producto por nombre"
+        />
+      </div>
+
+      <main class="container">
+        <h2>Catálogo de Productos</h2>
+        <div
+          class="row g-4 justify-content-center"
+          id="contenedorProductos"
+        ></div>
+      </main>
+
+      <div
+        id="alertaProducto"
+        class="position-fixed bottom-0 end-0 m-3 alert alert-success d-none"
+        style="z-index: 1050; min-width: 250px"
+      ></div>
+      <div id="footer-container"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const mainContent = document.getElementById("main-content");
+    const contenedor = document.getElementById("contenedorProductos");
+    let productosCargados = [];
+
+    setTimeout(() => {
+      document.getElementById("puzzle-overlay").style.display = "none";
+      mainContent.classList.add("visible");
+      document.body.style.overflow = "auto";
+    }, 1000);
+
+    // Cargar Header y activar el indicador del carrito
+    fetch("../../paginas/Shared/Header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header-container").innerHTML = data;
+        actualizarIndicadorCarrito();
+      });
+
+    // Footer
+    fetch("../../paginas/Shared/Footer.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("footer-container").innerHTML = data;
+      });
+
+    // Función para mostrar el punto rojo si hay productos
+    function actualizarIndicadorCarrito() {
+      const indicador = document.getElementById("carritoIndicator");
+      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+      if (indicador) {
+        if (carrito.length > 0) {
+          indicador.classList.remove("d-none");
+        } else {
+          indicador.classList.add("d-none");
+        }
+      }
+    }
+
+    // Cargar categorías
+    fetch("/api/categorias")
+      .then(res => res.ok ? res.json() : Promise.reject("Error en categorías"))
+      .then(categorias => {
+        const select = document.getElementById("filtroCategoria");
+        select.innerHTML = `<option value="">Todas las categorías</option>`;
+        categorias.forEach(cat => {
+          const option = document.createElement("option");
+          option.value = cat.CAT_NOMBRE;
+          option.textContent = cat.CAT_NOMBRE;
+          select.appendChild(option);
+        });
+      });
+
+    // Cargar productos
+    fetch("/api/productos")
+      .then(res => res.ok ? res.json() : Promise.reject("Error en productos"))
+      .then(productos => {
+        productosCargados = productos;
+        mostrarProductosFiltrados(productos);
+      });
+
+    document.getElementById("filtroCategoria").addEventListener("change", filtrarProductos);
+    document.getElementById("busquedaNombre").addEventListener("input", filtrarProductos);
+
+    function mostrarAlerta(mensaje, duracion = 3000) {
+      const alerta = document.getElementById("alertaProducto");
+      alerta.textContent = mensaje;
+      alerta.classList.remove("d-none");
+      setTimeout(() => alerta.classList.add("d-none"), duracion);
+    }
+
+    function mostrarProductosFiltrados(productos) {
+      contenedor.innerHTML = productos.length === 0
+        ? `<p class="text-center text-muted">No se encontraron productos.</p>`
+        : "";
+
+      productos.forEach((item) => {
+        const card = document.createElement("div");
+        card.className = "col-md-3";
+        card.innerHTML = `
+          <article class="card h-100 shadow-sm border-0">
+            <img src="${item.PROD_IMG}" alt="${item.PROD_NOMBRE}" class="img-fluid rounded" />
+            <div class="card-body text-center">
+              <h5 class="card-title">${item.PROD_NOMBRE}</h5>
+              <p class="card-text fw-bold">$${parseFloat(item.PPROD_PRECIO || item.PROD_PRECIO).toFixed(2)}</p>
+              <p class="text-muted small">Stock: ${item.PROD_STOCK} unidades</p>
+              <a href="../Productos/Detalle.html?id=${item.PROD_ID}" class="btn btn-outline-light btn-sm w-100 mb-2">Ver más</a>
+              <button onclick='agregarAlCarrito(${JSON.stringify(item)})' class="btn btn-morado btn-sm w-100 fw-semibold">🛒 Agregar al carrito</button>
+            </div>
+          </article>
+        `;
+        contenedor.appendChild(card);
+      });
+    }
+
+    window.agregarAlCarrito = function (producto) {
+      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      const existente = carrito.find(p => p.PROD_ID === producto.PROD_ID);
+      const precio = parseFloat(producto.PPROD_PRECIO || producto.PROD_PRECIO);
+
+      if (existente) {
+        existente.CANTIDAD += 1;
+      } else {
+        carrito.push({
+          PROD_ID: parseInt(producto.PROD_ID),
+          PROD_NOMBRE: producto.PROD_NOMBRE,
+          PROD_PRECIO: precio,
+          PROD_IMG: producto.PROD_IMG,
+          CANTIDAD: 1
+        });
+      }
+
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      actualizarIndicadorCarrito();
+      window.location.href = "../Carrito/Index.html";
+    };
+
+    function filtrarProductos() {
+      const categoria = document.getElementById("filtroCategoria").value;
+      const busqueda = document.getElementById("busquedaNombre").value.toLowerCase();
+
+      const filtrados = productosCargados.filter(p => {
+        const coincideCategoria = categoria === "" || p.CAT_ID === categoria || p.CAT_ID === p.CAT_NOMBRE;
+        const coincideBusqueda = p.PROD_NOMBRE.toLowerCase().includes(busqueda);
+        return coincideCategoria && coincideBusqueda;
+      });
+
+      mostrarProductosFiltrados(filtrados);
+    }
+  });
+</script>
+
+
+  </body>
+</html>
