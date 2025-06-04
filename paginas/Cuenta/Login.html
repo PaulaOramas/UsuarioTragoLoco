@@ -352,19 +352,43 @@ function mostrarLogin() {
 
     // Manejo del formulario de login
     const form = document.getElementById("formLogin");
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
 
-        const cedula = form.cedula.value.trim();
-        const contrasena = form.contrasena.value.trim();
+form.addEventListener("submit", function (e) {
+    e.preventDefault(); // Evitar el envío del formulario
 
-        if (cedula && contrasena) {
-            localStorage.setItem("usuario", cedula); // Guardamos el usuario en localStorage
-            window.location.href = "../Carrito/Index.html"; // Redirigimos a la página del carrito
-        } else {
-            alert("Cédula o contraseña inválidos.");
-        }
-    });
+    const cedula = form.cedula.value.trim();
+    const contrasena = form.contrasena.value.trim();
+
+    if (cedula && contrasena) {
+        // Llamada a la API para validar el login
+        fetch(`https://eltragolocorest.runasp.net/api/Login/Usuario/${cedula}`)
+            .then(res => {
+                if (!res.ok) throw new Error("Usuario no encontrado");
+                return res.json();
+            })
+            .then(data => {
+                // Verificar la contraseña
+                if (data.PASSWORD === contrasena) {
+                    // Login exitoso
+                    localStorage.setItem("usuario", cedula); // Guardar usuario en localStorage
+                    window.location.reload(); // Recargar la página para mostrar los datos del usuario
+                } else {
+                    alert("❌ Usuario o contraseña incorrectos.");
+                    document.getElementById("contrasena").value = ''; // Limpiar el campo contraseña
+                    document.getElementById("contrasena").focus();
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("❌ Error al autenticar. Verifique sus credenciales.");
+                document.getElementById("contrasena").value = ''; // Limpiar el campo contraseña
+                document.getElementById("contrasena").focus();
+            });
+    } else {
+        alert("Por favor, ingrese su cédula y contraseña.");
+    }
+});
+
 }
 
 
