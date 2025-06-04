@@ -126,7 +126,7 @@
     }
 
     // Cargar categorías
-    fetch("/api/categorias")
+    fetch("https://eltragolocorest.runasp.net/api/Categoria")
       .then(res => res.ok ? res.json() : Promise.reject("Error en categorías"))
       .then(categorias => {
         const select = document.getElementById("filtroCategoria");
@@ -140,7 +140,7 @@
       });
 
     // Cargar productos
-    fetch("/api/productos")
+    fetch('https://eltragolocorest.runasp.net/api/Producto')
       .then(res => res.ok ? res.json() : Promise.reject("Error en productos"))
       .then(productos => {
         productosCargados = productos;
