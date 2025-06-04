@@ -305,7 +305,7 @@ body.dark-mode .registro-container .alert-danger {
 }
 
 body.dark-mode main.registro-main {
-    background: #232323 !important;
+    background: #3b4045 !important;
     color: #f1f1f1 !important;
     box-shadow: 0 15px 35px rgba(107, 30, 37, 0.35);
 }
@@ -351,11 +351,142 @@ body.dark-mode main.registro-main button[type="submit"]:focus {
     box-shadow: 0 0 20px #a44b5aaa;
 }
 
+/* ====== Modo oscuro para Verificar Edad ====== */
+body.dark-mode .verificacion-body,
+body.dark-mode.verificacion-body {
+    background: #181818 !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode #form-wrapper {
+    background: #000 !important;
+    color: #f1f1f1 !important;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(107, 30, 37, 0.25);
+    padding: 2rem 2.5rem;
+}
+
+body.dark-mode #form-wrapper h2 {
+    color: #ffb6c1 !important;
+}
+
+body.dark-mode #form-wrapper input.form-control {
+    background-color: #dee2e6 !important;
+    color: #fff !important;
+    border: 2px solid #a44b5a !important;
+}
+body.dark-mode #form-wrapper input.form-control:focus {
+    background-color: #232323 !important;
+    border-color: #ffb6c1 !important;
+    color: #fff !important;
+}
+
+body.dark-mode #form-wrapper .btn-verificar {
+    background: linear-gradient(45deg, #6b1e25, #a44b5a) !important;
+    color: #fff !important;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    margin-top: 1rem;
+    transition: background 0.3s;
+}
+
+body.dark-mode #form-wrapper .btn-verificar:hover,
+body.dark-mode #form-wrapper .btn-verificar:focus {
+    background: linear-gradient(45deg, #a44b5a, #6b1e25) !important;
+    color: #fff !important;
+    box-shadow: 0 0 20px #a44b5aaa;
+}
+
 body.dark-mode #mensajeError {
     color: #ffb6c1 !important;
     background: #3a1a1a !important;
     border-radius: 8px;
     padding: 0.5rem 1rem;
+    margin-top: 1rem;
+}
+
+/* ====== Modo oscuro para Contactanos ====== */
+body.dark-mode .fondo-crema,
+body.dark-mode .container {
+    background-color: #181818 !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode .bg-light,
+body.dark-mode .shadow-lg.bg-light,
+body.dark-mode .rounded-4.bg-light {
+    background-color: #232323 !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode .faq-card,
+body.dark-mode .accordion-item {
+    background-color: #232323 !important;
+    color: #f1f1f1 !important;
+    border-left: 5px solid #6b1e25 !important;
+}
+
+body.dark-mode .accordion-button {
+    background-color: #232323 !important;
+    color: #ffb6c1 !important;
+}
+
+body.dark-mode .accordion-button:not(.collapsed) {
+    background-color: #181818 !important;
+    color: #ffb6c1 !important;
+}
+
+body.dark-mode .accordion-body {
+    background-color: #232323 !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode .form-label,
+body.dark-mode .fw-semibold,
+body.dark-mode .text-dark {
+    color: #ffb6c1 !important;
+}
+
+body.dark-mode .form-control,
+body.dark-mode textarea.form-control {
+    background-color: #181818 !important;
+    color: #fff !important;
+    border: 1.5px solid #a44b5a !important;
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode textarea.form-control:focus {
+    background-color: #232323 !important;
+    border-color: #ffb6c1 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .btn-morado {
+    background-color: #6b1e25 !important;
+    color: #fff !important;
+    border-color: #a44b5a !important;
+}
+
+body.dark-mode .btn-morado:hover,
+body.dark-mode .btn-morado:focus {
+    background-color: #a44b5a !important;
+    color: #fff !important;
+}
+
+body.dark-mode .small,
+body.dark-mode .fst-italic {
+    color: #b0b0b0 !important;
+}
+
+/* Fondo especial con blur solo para Contacto en modo oscuro */
+body.dark-mode.contacto-body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-color: #232323;
+    backdrop-filter: blur(4px);
+    z-index: -1;
 }
 
 
