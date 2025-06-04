@@ -1,0 +1,97 @@
+/* ======== Modo Oscuro ======== */
+body.dark-mode {
+    background-color: #121212; /* Fondo oscuro */
+    color: #ffffff; /* Texto blanco */
+}
+
+body.dark-mode .navbar {
+    background-color: #333333; /* Fondo navbar oscuro */
+}
+
+body.dark-mode .navbar-brand {
+    color: #ffffff !important;
+}
+
+body.dark-mode .nav-link {
+    color: #ffffff;
+}
+
+body.dark-mode .nav-link:hover {
+    color: #a44b5a;
+}
+
+body.dark-mode .card {
+    background-color: #1e1e1e; /* Fondo de las tarjetas */
+    color: #ffffff; /* Color del texto de las tarjetas */
+    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.1); /* Sombra más suave */
+}
+
+body.dark-mode .btn-morado {
+    background-color: #6b1e25;
+    color: white !important;
+}
+
+body.dark-mode .btn-morado:hover {
+    background-color: #4c145c;
+}
+
+body.dark-mode .fondo-crema {
+    background-color: #1e1e1e !important;
+}
+
+body.dark-mode .faq-card {
+    background-color: #2e2e2e;
+    color: #ffffff;
+    border-left: 5px solid #6f42c1;
+}
+
+body.dark-mode .btn-primary {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+body.dark-mode .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #333333;
+}
+
+body.dark-mode .table-dark th {
+    background-color: #222222;
+    color: white;
+}
+
+body.dark-mode .table-bordered th,
+body.dark-mode .table-bordered td {
+    border: 1px solid #444444;
+    color: white;
+}
+
+body.dark-mode .intro-responsable {
+    background-color: #333333;
+    color: white !important;
+}
+
+body.dark-mode .bloque-responsable {
+    background-color: #444444;
+    color: white;
+}
+
+body.dark-mode .creador-card {
+    background: #333333;
+    color: white;
+}
+
+body.dark-mode .historia-texto {
+    color: #ccc;
+}
+
+body.dark-mode .btn-outline-light {
+    background-color: #333333;
+    color: white;
+    border: 1px solid #444444;
+}
+
+body.dark-mode .btn-outline-light:hover {
+    background-color: #444444;
+}
+
+/* Ajustes para otros elementos según sea necesario */
