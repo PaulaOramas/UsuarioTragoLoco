@@ -697,137 +697,6 @@ main.container p.text-muted {
   padding: 10px;
 }
 
-
-
-
-   /* Logign */
-     .login-container {
-      background: #fff;
-      padding: 2rem 2.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 10px 30px rgba(107, 30, 37, 0.15);
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .login-container h2 {
-      font-family: 'Pacifico', cursive;
-      color: #6b1e25;
-      margin-bottom: 1.5rem;
-      font-size: 2rem;
-    }
-
-    .btn-register {
-      background-color: #6b1e25;
-      color: #f5f5dc;
-      font-weight: 700;
-      border-radius: 30px;
-      padding: 0.6rem 1.5rem;
-      transition: background-color 0.3s ease;
-      border: none;
-      margin-top: 1rem;
-      width: 100%;
-      cursor: pointer;
-    }
-
-    .btn-register:hover,
-    .btn-register:focus {
-      background-color: #a44b5a;
-      color: #fff;
-      outline: none;
-      box-shadow: 0 0 12px #a44b5aaa;
-    }
-
-    .btn-volver {
-      background: transparent;
-      border: none;
-      color: #6b1e25;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-bottom: 1rem;
-      text-decoration: underline;
-    }
-
-    .btn-volver:hover {
-      color: #a44b5a;
-    }
-
-
-/* PERFIL
-*/
-
-body.fondo-crema {
-    background-color: #f5f5dc;
-    font-family: 'Raleway', sans-serif;
-    color: #4b145b;
-}
-
-/* Títulos */
-.titulo-principal {
-    font-family: 'Pacifico', cursive;
-    color: #6b1e25;
-    font-weight: 700;
-}
-
-.sub-titulo {
-    color: #6b1e25;
-    font-weight: 600;
-    border-left: 5px solid #6b1e25;
-    padding-left: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-/* Tabla */
-/* Tabla morada */
-.table-bordered {
-    border: 2px solid #6b1e25;
-}
-
-.table-striped > tbody > tr:nth-of-type(odd) {
-    background-color: #f0e6f0; /* morado muy claro */
-}
-
-.table-striped > tbody > tr:nth-of-type(even) {
-    background-color: #faf5fb; /* casi blanco con tintes lilas */
-}
-
-.table-dark thead {
-    background-color: #6b1e25; /* morado oscuro */
-    color: #f5f5dc; /* crema claro */
-}
-
-.table-hover tbody tr:hover {
-    background-color: #a44b5a33; /* morado transparente suave al pasar mouse */
-    cursor: pointer;
-}
-
-/* Encabezados y celdas */
-.table th, .table td {
-    border-color: #6b1e25;
-    vertical-align: middle;
-    color: #4b145b;
-    font-weight: 600;
-}
-
-/* Botón detalles morado */
-.btn-outline-morado {
-    color: #6b1e25;
-    border-color: #6b1e25;
-    font-weight: 600;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-    .btn-outline-morado:hover {
-        background-color: #6b1e25;
-        color: #f5f5dc;
-        text-decoration: none;
-    }
-
-
 /* Modal header */
 .bg-morado {
     background-color: #6b1e25 !important;
@@ -990,3 +859,69 @@ body {
     }
 }
 
+/* Fondo de la página */
+.fondo-crema {
+    background-color: #f8f9fa; /* Crema */
+}
+
+/* Estilo del botón "Ver detalles" */
+.btn-outline-morado {
+    border-color: #6b1e25;
+    color: #6b1e25;
+    background-color: transparent;
+    font-weight: bold;
+}
+
+.btn-outline-morado:hover {
+    background-color: #6b1e25;
+    color: white;
+}
+
+/* Estilo de la tabla con fondo morado */
+.table-dark {
+    background-color: #6b1e25; /* Color morado */
+    color: white;
+}
+
+.table-dark th,
+.table-dark td {
+    border: 1px solid #6b1e25;
+}
+
+/* Títulos de la página */
+.sub-titulo {
+    color: #6b1e25;
+    font-weight: bold;
+}
+
+/* Título principal */
+.titulo-principal {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    color: #6b1e25;
+}
+
+/* Fondo del modal */
+.modal-header.bg-morado {
+    background-color: #6b1e25;
+}
+
+.modal-header.bg-morado .modal-title {
+    color: white;
+}
+
+/* Modal para los detalles de factura */
+.modal-content {
+    border-radius: 15px;
+}
+
+/* Fondo de la tabla dentro del modal */
+.table-bordered {
+    border-color: #6b1e25;
+}
+
+/* Estilo de la tabla dentro del modal */
+.table-bordered th,
+.table-bordered td {
+    color: black;
+}

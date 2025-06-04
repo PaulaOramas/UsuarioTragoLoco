@@ -3,53 +3,253 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login | Trago Loco</title>
+    <title>Perfil de Usuario | Trago Loco</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Estilos del sitio -->
-    <link href="../../css/Site.css" rel="stylesheet" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" />
+    <!-- Fuente Pacifico -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <style>
-        body {
-            color: #4b145b;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+    <!-- CSS personalizado -->
+   <style>
+        /* Fondo de la página */
+.fondo-crema {
+    background-color: #f8f9fa; /* Crema */
+}
+
+/* Estilo del botón "Ver detalles" */
+.btn-outline-morado {
+    border-color: #6b1e25;
+    color: #6b1e25;
+    background-color: transparent;
+    font-weight: bold;
+}
+
+.btn-outline-morado:hover {
+    background-color: #6b1e25;
+    color: white;
+}
+
+/* Estilo de la tabla con fondo morado */
+.table-dark {
+    background-color: #6b1e25; /* Color morado */
+    color: white; /* Asegurando que el texto dentro de los th sea blanco */
+}
+
+/* Estilo de los encabezados dentro de la tabla */
+.table-dark th {
+    background-color: #6b1e25; /* Fondo morado */
+    color: white !important; /* Asegurando que el texto sea blanco */
+    font-weight: bold;
+}
+
+/* Estilo de las celdas */
+.table-dark td {
+    border: 1px solid #6b1e25; /* Borde en color morado */
+}
+
+/* Títulos de la página */
+.sub-titulo {
+    color: #6b1e25;
+    font-weight: bold;
+}
+
+/* Título principal */
+.titulo-principal {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    color: #6b1e25;
+}
+
+/* Fondo del modal */
+.modal-header.bg-morado {
+    background-color: #6b1e25;
+}
+
+.modal-header.bg-morado .modal-title {
+    color: white;
+}
+
+/* Modal para los detalles de factura */
+.modal-content {
+    border-radius: 15px;
+}
+
+/* Fondo de la tabla dentro del modal */
+.table-bordered {
+    border-color: #6b1e25;
+}
+
+/* Estilo de la tabla dentro del modal */
+.table-bordered th,
+.table-bordered td {
+    color: black;
+}
+
+/* Estilo para el contenedor de login */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #6b1e25;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+/* Estilo para la tabla de facturas */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Botón de ver detalles */
+.btn-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+/* Mejora en la apariencia de las filas de la tabla */
+.table-striped tbody tr:hover {
+    background-color: #eaeaea; /* Color más claro al pasar el mouse */
+}
+
+/* Estilo del contenedor de login */
+.login-container {
+    background: #fff;
+    padding: 2rem 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(107, 30, 37, 0.15);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Título dentro del login */
+.login-container h2 {
+    font-family: 'Pacifico', cursive;
+    color: #6b1e25;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+/* Estilo para los campos de entrada (input) */
+input {
+    border: 1px solid #6b1e25;
+    border-radius: 8px;
+    padding: 0.8rem;
+    width: 100%;
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+}
+
+/* Estilo de los textos de ayuda debajo de los inputs */
+.form-text {
+    color: #6b1e25;
+    font-size: 0.9rem;
+}
+
+/* Estilo del botón "Ingresar" */
+.btn-morado {
+    background-color: #6b1e25;
+    color: #f5f5dc;
+    font-weight: 700;
+    border-radius: 30px;
+    padding: 0.6rem 1.5rem;
+    transition: background-color 0.3s ease;
+    border: none;
+    margin-top: 1rem;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btn-morado:hover,
+.btn-morado:focus {
+    background-color: #a44b5a;
+    color: #fff;
+    outline: none;
+    box-shadow: 0 0 12px #a44b5aaa;
+}
+
+/* Estilo de los enlaces */
+a {
+    color: #6b1e25;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    color: #a44b5a;
+}
+
+/* Estilo de los mensajes de error */
+.alert {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    border-radius: 10px;
+}
+
+/* Estilo de la alerta de error */
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
     </style>
 </head>
-<body>
+<body class="fondo-crema">
 
-    <!-- Header -->
-    <div id="header-container" class="w-100"></div>
+    <!-- Header dinámico -->
+    <div id="header-container"></div>
 
-    <!-- Contenedor login -->
-    <div class="login-container shadow-lg">
-        <div id="contenidoLogin">
-            <!-- Aquí va el formulario que se cargará dinámicamente por login.js -->
-            <h2>Inicia Sesión</h2>
+    <main class="container my-5 p-4 rounded shadow bg-white">
+        <h1 class="text-center mb-4 titulo-principal">Perfil de Usuario</h1>
+
+        <!-- Contenedor de login y datos del perfil -->
+        <div id="contenidoPerfil"></div>
+    </main>
+
+    <!-- Footer dinámico -->
+    <div id="footer-container" class="mt-5"></div>
+
+    <!-- Modal detalle factura -->
+    <div class="modal fade" id="modalDetalleFactura" tabindex="-1" aria-labelledby="modalDetalleFacturaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-morado text-white">
+                    <h5 class="modal-title" id="modalDetalleFacturaLabel">Detalle de Factura</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detalle-factura-body">
+                            <!-- Detalles dinámicos -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <div id="footer-container" class="w-100"></div>
-
-    <!-- Bootstrap JS Bundle -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- JS login -->
-    <script src="../../js/login.js"></script>
-
-    <!-- Cargar Header y Footer -->
     <script>
-        // Cargar Header y Footer al cargar la página
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener("DOMContentLoaded", () => {
+            // Cargar el Header y Footer
             fetch('../../paginas/Shared/Header.html')
                 .then(res => res.text())
                 .then(data => {
@@ -62,7 +262,173 @@
                 .then(data => {
                     document.getElementById('footer-container').innerHTML = data;
                 });
+
+            // Verificar si el usuario está logueado
+            const usuarioActual = localStorage.getItem('usuario');
+
+            // Si el usuario está logueado, mostrar sus datos
+            if (usuarioActual) {
+                mostrarPerfil(usuarioActual);
+            } else {
+                mostrarLogin();
+            }
         });
+
+        // Mostrar perfil del usuario
+        function mostrarPerfil(usuario) {
+            const contenidoPerfil = document.getElementById('contenidoPerfil');
+            contenidoPerfil.innerHTML = `
+                <h2 class="mb-3 sub-titulo">Datos Personales</h2>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <p><strong>Cédula/RUC:</strong> <span id="usu_ci_ruc">${usuario}</span></p>
+                        <p><strong>Nombre:</strong> <span id="usu_nombre">${usuario}</span></p>
+                        <p><strong>Email:</strong> <span id="usu_email">${usuario}@email.com</span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Teléfono:</strong> <span id="usu_telefono">0998765432</span></p>
+                        <p><strong>Dirección:</strong> <span id="usu_direccion">Av. Siempre Viva 123</span></p>
+                        <p><strong>Ciudad:</strong> <span id="usu_ciudad">Quito</span></p>
+                    </div>
+                </div>
+
+                <h2 class="mb-3 sub-titulo">Mis Facturas</h2>
+                <table class="table table-bordered table-striped align-middle text-center">
+                    
+                   <thead class="table-dark">
+    <tr>
+        <th class="text-white">ID Factura</th>
+        <th class="text-white">Fecha</th>
+        <th class="text-white">Total</th>
+        <th class="text-white">Detalles</th>
+    </tr>
+</thead>
+                    <tbody id="tabla-facturas">
+                        <!-- Aquí se llenarán las filas -->
+                    </tbody>
+                </table>
+
+                <button id="btnCerrarSesion" class="btn btn-danger">Cerrar Sesión</button>
+            `;
+
+            cargarFacturas();
+
+            // Manejar el cierre de sesión
+            document.getElementById('btnCerrarSesion').addEventListener('click', cerrarSesion);
+        }
+
+        // Mostrar formulario de login
+        function mostrarLogin() {
+            const contenidoPerfil = document.getElementById('contenidoPerfil');
+            contenidoPerfil.innerHTML = `
+                <div class="login-container">
+                    <h2 class="mb-4 text-dark">Iniciar Sesión</h2>
+                    <form id="formLogin" novalidate>
+                        <div class="mb-3 text-start">
+                            <label for="cedula" class="form-label">Cédula:</label>
+                            <input type="text" id="cedula" name="cedula" class="form-control" required maxlength="13"
+                                   pattern="\\d{10,13}" title="Ingrese una cédula o RUC válida" aria-describedby="cedulaHelp" />
+                            <div id="cedulaHelp" class="form-text">Ingrese su cédula o RUC (10-13 dígitos).</div>
+                        </div>
+
+                        <div class="mb-3 text-start">
+                            <label for="contrasena" class="form-label">Contraseña:</label>
+                            <input type="password" id="contrasena" name="contrasena" class="form-control" required aria-describedby="contrasenaHelp" />
+                            <div id="contrasenaHelp" class="form-text">Ingrese su contraseña.</div>
+                        </div>
+
+                        <button type="submit" class="btn btn-morado w-100 fw-bold">Ingresar</button>
+
+                        <div class="mt-3">
+                            <span>¿No tienes cuenta?</span>
+                            <a href="Registro.html" class="text-decoration-none fw-bold text-danger">Regístrate aquí</a>
+                        </div>
+                    </form>
+                </div>
+            `;
+
+            // Manejo del formulario de login
+            const form = document.getElementById("formLogin");
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const cedula = form.cedula.value.trim();
+                const contrasena = form.contrasena.value.trim();
+
+                if (cedula && contrasena) {
+                    localStorage.setItem("usuario", cedula);
+                    window.location.reload(); // Recarga la página para mostrar los datos del usuario
+                } else {
+                    alert("Cédula o contraseña inválidos.");
+                }
+            });
+        }
+
+        // Función para cargar las facturas
+        function cargarFacturas() {
+            const facturas = [
+                {
+                    id: 101, fecha: "2025-05-20", total: 125.50, detalles: [
+                        { producto: "Vino Tinto", cantidad: 2, precio: 30.00 },
+                        { producto: "Whisky", cantidad: 1, precio: 65.50 }
+                    ]
+                },
+                {
+                    id: 102, fecha: "2025-05-25", total: 78.00, detalles: [
+                        { producto: "Cerveza Artesanal", cantidad: 3, precio: 18.00 },
+                        { producto: "Ron", cantidad: 1, precio: 24.00 }
+                    ]
+                }
+            ];
+
+            const tbody = document.getElementById('tabla-facturas');
+            tbody.innerHTML = "";
+            facturas.forEach(factura => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${factura.id}</td>
+                    <td>${factura.fecha}</td>
+                    <td>$${factura.total.toFixed(2)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-morado" onclick="mostrarDetalle(${factura.id})">Ver detalles</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Mostrar detalles de factura
+        function mostrarDetalle(idFactura) {
+            const factura = {
+                id: 101, fecha: "2025-05-20", total: 125.50, detalles: [
+                    { producto: "Vino Tinto", cantidad: 2, precio: 30.00 },
+                    { producto: "Whisky", cantidad: 1, precio: 65.50 }
+                ]
+            };
+
+            const tbodyDetalle = document.getElementById('detalle-factura-body');
+            tbodyDetalle.innerHTML = "";
+            factura.detalles.forEach(item => {
+                const subtotal = item.cantidad * item.precio;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${item.producto}</td>
+                    <td>${item.cantidad}</td>
+                    <td>$${item.precio.toFixed(2)}</td>
+                    <td>$${subtotal.toFixed(2)}</td>
+                `;
+                tbodyDetalle.appendChild(tr);
+            });
+            const modal = new bootstrap.Modal(document.getElementById('modalDetalleFactura'));
+            modal.show();
+        }
+
+        // Cerrar sesión
+        function cerrarSesion() {
+            localStorage.removeItem("usuario");
+            window.location.reload();
+        }
+
     </script>
 
 </body>
