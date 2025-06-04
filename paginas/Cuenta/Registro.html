@@ -11,6 +11,9 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Pacifico&display=swap" rel="stylesheet" />
 
+  <link href="../../css/oscuro.css" rel="stylesheet" />
+  <link href="../../css/Site.css" rel="stylesheet" />
+
   <style>
     body {
       font-family: 'Montserrat', sans-serif;
@@ -234,6 +237,33 @@
       fetch('../../paginas/Shared/Footer.html')
         .then(res => res.text())
         .then(data => document.getElementById('footer-container').innerHTML = data);
+    });
+
+    // filepath: incluir en todas las páginas o en un JS común
+    document.addEventListener("DOMContentLoaded", function () {
+      const switchInput = document.getElementById('darkModeSwitch');
+      const label = document.getElementById('darkModeLabel');
+      const body = document.body;
+
+      // Aplica el modo guardado
+      if (localStorage.getItem('dark-mode') === 'enabled') {
+        body.classList.add('dark-mode');
+        if (switchInput) switchInput.checked = true;
+        if (label) label.textContent = "Modo Claro";
+      }
+
+      if (switchInput) {
+        switchInput.addEventListener('change', function () {
+          body.classList.toggle('dark-mode');
+          if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('dark-mode', 'enabled');
+            label.textContent = "Modo Claro";
+          } else {
+            localStorage.setItem('dark-mode', 'disabled');
+            label.textContent = "Modo Oscuro";
+          }
+        });
+      }
     });
   </script>
 
