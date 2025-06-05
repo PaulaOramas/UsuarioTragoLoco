@@ -285,13 +285,16 @@
             }
 
             // Obtener las facturas del API
-            fetch(`https://eltragolocorest.runasp.net/api/Factura?ciRuc=${usuarioActual}`)
+            fetch(`https://eltragolocorest.runasp.net/api/Factura`)
                 .then(response => response.json())
                 .then(facturas => {
+                    // Filtrar las facturas por ciRuc
+                    const facturasUsuario = facturas.filter(factura => factura.USU_CI_RUC === usuarioActual);
+
                     const tbody = document.getElementById('tabla-facturas');
                     tbody.innerHTML = "";  // Limpiar tabla antes de mostrar las nuevas facturas
 
-                    facturas.forEach(factura => {
+                    facturasUsuario.forEach(factura => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
                             <td>${factura.FAC_FECHA.split('T')[0]}</td>
@@ -355,7 +358,6 @@
                     alert("❌ Error al cargar los detalles de la factura.");
                 });
         }
-
 
         // Cerrar sesión
         function cerrarSesion() {
