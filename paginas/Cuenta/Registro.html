@@ -437,6 +437,30 @@
         alert("❌ " + error.message);
       }
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const togglePassword = document.getElementById("togglePassword");
+      const passwordInput = document.getElementById("contrasena");
+      const slash = document.getElementById("slash");
+
+      togglePassword.addEventListener("click", function () {
+        const isPassword = passwordInput.type === "password";
+        passwordInput.type = isPassword ? "text" : "password";
+        // Animar el slash del ojo
+        slash.style.opacity = isPassword ? "1" : "0";
+      });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("../../paginas/Shared/Header.html")
+        .then(res => res.text())
+        .then(data => document.getElementById("header-container").innerHTML = data);
+
+      fetch("../../paginas/Shared/Footer.html")
+        .then(res => res.text())
+        .then(data => document.getElementById("footer-container").innerHTML = data);
+    });
   </script>
 
 </body>
