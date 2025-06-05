@@ -42,6 +42,11 @@
         user-select: none;
         pointer-events: none;
       }
+
+      /* El label del switch será negro en modo claro */
+      body:not(.dark-mode) #darkModeLabel {
+          color: #111 !important;
+      }
     </style>
   </head>
   <body class="fondo-crema">
@@ -244,6 +249,8 @@ document.addEventListener("DOMContentLoaded", function () {
     body.classList.add('dark-mode');
     if (switchInput) switchInput.checked = true;
     if (label) label.textContent = "Modo Claro";
+  } else {
+    if (label) label.textContent = "Modo Oscuro";
   }
 
   if (switchInput) {
