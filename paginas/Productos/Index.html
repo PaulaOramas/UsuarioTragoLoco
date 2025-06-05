@@ -22,6 +22,8 @@
     />
 
     <link rel="preload" as="video" href="/imagenes/GIN COCKTAIL B ROLL.mp4" type="video/mp4">
+    <link rel="preload" as="image" href="/imagenes/GIN COCKTAIL B ROLL.jpg" />
+<link rel="preload" as="image" href="/imagenes/logo.png" />
 
     <style>
       #main-content {
@@ -181,7 +183,7 @@
         card.className = "col-md-3";
         card.innerHTML = `
           <article class="card h-100 shadow-sm border-0">
-            <img src="${item.PROD_IMG}" alt="${item.PROD_NOMBRE}" class="img-fluid rounded" />
+            <img src="${item.PROD_IMG}" alt="${item.PROD_NOMBRE}" class="img-fluid rounded" loading="lazy" />
             <div class="card-body text-center">
               <h5 class="card-title">${item.PROD_NOMBRE}</h5>
               <p class="card-text fw-bold">$${parseFloat(item.PPROD_PRECIO || item.PROD_PRECIO).toFixed(2)}</p>
@@ -270,3 +272,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   </body>
 </html>
+
+/imagenes/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.mp4
+  Cache-Control: public, max-age=31536000, immutable
