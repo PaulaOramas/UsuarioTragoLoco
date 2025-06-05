@@ -531,6 +531,13 @@
             localStorage.removeItem("usuario");
             window.location.reload();
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+  // Aplica el modo guardado aunque el switch esté en el header
+  if (localStorage.getItem('dark-mode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+  }
+});
     </script>
 
 </body>
