@@ -302,37 +302,37 @@
                     // Mostrar los datos del perfil en la página
                     const contenidoPerfil = document.getElementById('contenidoPerfil');
                     contenidoPerfil.innerHTML = `
-                    <h2 class="mb-3 sub-titulo">Datos Personales</h2>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <p><strong>Cédula/RUC:</strong> <span id="usu_ci_ruc">${usuarioData.USU_CI_RUC}</span></p>
-                            <p><strong>Nombre:</strong> <span id="usu_nombre">${usuarioData.USU_NOMBRE}</span></p>
-                            <p><strong>Email:</strong> <span id="usu_email">${usuarioData.USU_EMAIL}</span></p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>Teléfono:</strong> <span id="usu_telefono">${usuarioData.USU_TELEFONO}</span></p>
-                            <p><strong>Dirección:</strong> <span id="usu_direccion">${usuarioData.USU_DIRECCION}</span></p>
-                            <p><strong>Ciudad:</strong> <span id="usu_ciudad">${ciudad}</span></p>
-                        </div>
-                    </div>
+    <h2 class="mb-3 sub-titulo text-center">Datos Personales</h2>
+    <div class="row g-3">
+        <div class="col-md-6 text-start">
+            <div class="mb-2"><span class="fw-bold">Cédula/RUC:</span> <span class="text-dark">${usuarioData.USU_CI_RUC}</span></div>
+            <div class="mb-2"><span class="fw-bold">Nombre:</span> <span class="text-dark">${usuarioData.USU_NOMBRE}</span></div>
+            <div class="mb-2"><span class="fw-bold">Email:</span> <span class="text-dark">${usuarioData.USU_EMAIL}</span></div>
+        </div>
+        <div class="col-md-6 text-start">
+            <div class="mb-2"><span class="fw-bold">Teléfono:</span> <span class="text-dark">${usuarioData.USU_TELEFONO}</span></div>
+            <div class="mb-2"><span class="fw-bold">Dirección:</span> <span class="text-dark">${usuarioData.USU_DIRECCION}</span></div>
+            <div class="mb-2"><span class="fw-bold">Ciudad:</span> <span class="text-dark">${ciudad}</span></div>
+        </div>
+    </div>
 
-                    <h2 class="mb-3 sub-titulo">Mis Facturas</h2>
-                    <table class="table table-bordered table-striped align-middle text-center">
-                        <thead class="table-dark">
-                            <tr>
-                                <th class="text-white">ID Factura</th>
-                                <th class="text-white">Fecha</th>
-                                <th class="text-white">Total</th>
-                                <th class="text-white">Detalles</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabla-facturas">
-                            <!-- Aquí se llenarán las filas -->
-                        </tbody>
-                    </table>
+    <h2 class="mb-3 sub-titulo text-center">Mis Facturas</h2>
+    <table class="table table-bordered table-striped align-middle text-center">
+        <thead class="table-dark">
+            <tr>
+                <th class="text-white">ID Factura</th>
+                <th class="text-white">Fecha</th>
+                <th class="text-white">Total</th>
+                <th class="text-white">Detalles</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-facturas">
+            <!-- Aquí se llenarán las filas -->
+        </tbody>
+    </table>
 
-                    <button id="btnCerrarSesion" class="btn btn-danger">Cerrar Sesión</button>
-                `;
+    <button id="btnCerrarSesion" class="btn btn-danger">Cerrar Sesión</button>
+`;
 
                     // Cargar las facturas
                     cargarFacturas(usuario);
