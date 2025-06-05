@@ -192,8 +192,12 @@
       indicador.classList.toggle("d-none", carrito.length === 0);
     }
 
-    function renderCarrito(contenedor, carrito, usuario) {
+    function renderCarrito() {
+       const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      const usuario = localStorage.getItem("usuario");
+      const contenedor = document.getElementById("contenedorCarrito");
       contenedor.innerHTML = "";
+      
 
       if (carrito.length === 0) {
         contenedor.innerHTML = ` 
@@ -286,7 +290,7 @@
         localStorage.setItem("carrito", JSON.stringify(carrito));
 
         // Volver a renderizar el carrito y actualizar el indicador
-        renderCarrito(contenedor, carrito, usuario);
+        renderCarrito();
         actualizarIndicadorCarrito();
       };
 
@@ -375,7 +379,7 @@
 
           });
       }
-      renderCarrito(contenedor, carrito, usuario);
+      renderCarrito();
       actualizarIndicadorCarrito();
     });
   </script>
