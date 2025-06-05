@@ -110,6 +110,8 @@
   <!-- Header -->
   <div id="header-container"></div>
 
+
+
   <!-- Contenido Registro -->
   <main class="registro-main">
     <h2>📝 Crear Cuenta</h2>
@@ -135,9 +137,23 @@
         <input id="email" name="email" type="email" class="form-control" placeholder="ejemplo@correo.com" required />
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 position-relative">
         <label for="contrasena" class="form-label">Contraseña</label>
-        <input id="contrasena" name="contrasena" type="password" class="form-control" placeholder="********" required />
+        <div style="position:relative; display:inline-block; width:100%;">
+          <input id="contrasena" name="contrasena" type="password" class="form-control"
+            placeholder="********" required style="padding-right:2.5rem;" />
+          <button type="button" id="togglePassword" tabindex="-1"
+            style="position:absolute; top:50%; right:1rem; transform:translateY(-50%); background:transparent; border:none; outline:none; padding:0;">
+            <!-- SVG ojo animado -->
+            <svg id="iconoPassword" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#a44b5a"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:0.2s;">
+              <ellipse cx="12" cy="12" rx="8" ry="5" />
+              <circle id="pupila" cx="12" cy="12" r="2.2" fill="#a44b5a" />
+              <path id="slash" d="M3 3L21 21" stroke="#a44b5a" stroke-width="2"
+                style="opacity:0;transition:opacity 0.2s;" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       <div class="mb-3">
@@ -345,7 +361,6 @@
         .then(data => document.getElementById('footer-container').innerHTML = data);
     });
 
-    // filepath: incluir en todas las páginas o en un JS común
     document.addEventListener("DOMContentLoaded", function () {
       const switchInput = document.getElementById('darkModeSwitch');
       const label = document.getElementById('darkModeLabel');
@@ -369,6 +384,24 @@
             label.textContent = "Modo Oscuro";
           }
         });
+      }
+    });
+
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const input = document.getElementById('contrasena');
+      const svg = document.getElementById('iconoPassword');
+      const slash = document.getElementById('slash');
+      const pupila = document.getElementById('pupila');
+      if (input.type === "password") {
+        input.type = "text";
+        slash.style.opacity = 1; // Muestra la línea
+        pupila.setAttribute("fill", "#b2313b");
+        svg.setAttribute("stroke", "#b2313b");
+      } else {
+        input.type = "password";
+        slash.style.opacity = 0; // Oculta la línea
+        pupila.setAttribute("fill", "#a44b5a");
+        svg.setAttribute("stroke", "#a44b5a");
       }
     });
   </script>

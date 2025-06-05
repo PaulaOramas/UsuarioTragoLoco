@@ -475,7 +475,7 @@ body.dark-mode .btn-morado:focus {
 }
 
 body.dark-mode .small,
-body.dark-mode .fst-italic {
+body.dark_mode .fst-italic {
     color: #b0b0b0 !important;
 }
 
@@ -487,6 +487,311 @@ body.dark-mode.contacto-body::before {
     background-color: #232323;
     backdrop-filter: blur(4px);
     z-index: -1;
+}
+
+/* ====== Modo oscuro para Detalle de Producto ====== */
+body.dark-mode .fondo-crema,
+body.dark-mode .container {
+    background-color: #181818 !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode .img-fluid,
+body.dark-mode img {
+    background: #232323 !important;
+    border: 2px solid #a44b5a !important;
+}
+
+body.dark-mode .text-dark,
+body.dark-mode .fw-bold,
+body.dark-mode .fw-semibold {
+    color: #ffb6c1 !important;
+}
+
+body.dark-mode .lead {
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode .form-control {
+    background-color: #232323 !important;
+    color: #fff !important;
+    border: 1.5px solid #a44b5a !important;
+}
+
+body.dark-mode .form-control:focus {
+    background-color: #181818 !important;
+    border-color: #ffb6c1 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .btn-morado {
+    background-color: #6b1e25 !important;
+    color: #fff !important;
+    border-color: #a44b5a !important;
+}
+
+body.dark-mode .btn-morado:hover,
+body.dark-mode .btn-morado:focus {
+    background-color: #a44b5a !important;
+    color: #fff !important;
+}
+
+body.dark-mode .btn-outline-dark,
+body.dark-mode .btn-outline-dark.text-dark {
+    background: transparent !important;
+    color: #ffb6c1 !important;
+    border-color: #a44b5a !important;
+}
+
+body.dark-mode .btn-outline-dark:hover,
+body.dark-mode .btn-outline-dark:focus {
+    background: #a44b5a !important;
+    color: #fff !important;
+    border-color: #a44b5a !important;
+}
+
+/* ====== Modo oscuro unificado con contraste elegante ====== */
+body.dark-mode,
+body.dark-mode .fondo-crema,
+body.dark-mode .container,
+body.dark-mode .bg-white,
+body.dark-mode main.bg-white,
+body.dark-mode .card,
+body.dark-mode .modal-content,
+body.dark-mode .dropdown-menu,
+body.dark-mode .faq-card,
+body.dark-mode .accordion-item,
+body.dark-mode .registro-container,
+body.dark-mode main.registro-main,
+body.dark-mode #form-wrapper {
+    background-color: #232323 !important;
+    color: #f1f1f1 !important;
+    box-shadow: 0 10px 30px rgba(107, 30, 37, 0.18);
+    border-radius: 12px;
+}
+
+body.dark-mode .login-container,
+body.dark-mode .registro-container,
+body.dark-mode main.registro-main,
+body.dark-mode #form-wrapper {
+    border: 1px solid #a44b5a !important;
+}
+
+body.dark-mode .card,
+body.dark-mode .modal-content,
+body.dark-mode .dropdown-menu,
+body.dark-mode .faq-card,
+body.dark-mode .accordion-item {
+    border: 1px solid #a44b5a !important;
+}
+
+body.dark-mode .form-control,
+body.dark-mode input,
+body.dark_mode select,
+body.dark-mode textarea.form-control {
+    background-color: #232323 !important;
+    color: #fff !important;
+    border: 1.5px solid #a44b5a !important;
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea.form-control:focus {
+    background-color: #232323 !important;
+    border-color: #ffb6c1 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .form-label,
+body.dark-mode .form-text,
+body.dark_mode .fw-semibold,
+body.dark-mode .text-dark,
+body.dark-mode label {
+    color: #ffb6c1 !important;
+}
+
+body.dark-mode .titulo-principal,
+body.dark-mode .sub-titulo,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5 {
+    color: #ffb6c1 !important;
+}
+
+body.dark-mode .btn-morado,
+body.dark-mode .btn-outline-morado,
+body.dark-mode .btn-primary {
+    background-color: #6b1e25 !important;
+    color: #fff !important;
+    border-color: #a44b5a !important;
+}
+
+body.dark-mode .btn-morado:hover,
+body.dark_mode .btn-outline-morado:hover,
+body.dark_mode .btn-primary:hover,
+body.dark_mode .btn-morado:focus,
+body.dark_mode .btn-outline-morado:focus,
+body.dark_mode .btn-primary:focus {
+    background-color: #a44b5a !important;
+    color: #fff !important;
+    border-color: #a44b5a !important;
+}
+
+body.dark-mode .btn-outline-light,
+body.dark-mode .btn-outline-dark {
+    background: transparent !important;
+    color: #ffb6c1 !important;
+    border-color: #a44b5a !important;
+}
+
+body.dark-mode .btn-outline-light:hover,
+body.dark-mode .btn-outline-dark:hover {
+    background: #a44b5a !important;
+    color: #fff !important;
+    border-color: #a44b5a !important;
+}
+
+body.dark-mode .table,
+body.dark-mode .table-bordered,
+body.dark-mode .table-striped,
+body.dark-mode .table-dark {
+    background-color: #232323 !important;
+    color: #f1f1f1 !important;
+    border-color: #a44b5a !important;
+}
+
+body.dark-mode .table-dark th,
+body.dark-mode .table-dark td,
+body.dark-mode .table-bordered th,
+body.dark-mode .table-bordered td {
+    background-color: #232323 !important;
+    color: #f1f1f1 !important;
+    border-color: #a44b5a !important;
+}
+
+body.dark-mode .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #292929 !important;
+}
+
+body.dark-mode .alert-danger,
+body.dark-mode #mensajeError {
+    background-color: #3a1a1a !important;
+    color: #ffb6c1 !important;
+    border: 1px solid #a44b5a !important;
+}
+
+body.dark-mode a,
+body.dark-mode .footer-link {
+    color: #ffb6c1 !important;
+}
+body.dark-mode a:hover,
+body.dark-mode .footer-link:hover {
+    color: #fff !important;
+}
+
+body.dark-mode .img-fluid,
+body.dark-mode img {
+    background: #232323 !important;
+    border: 2px solid #a44b5a !important;
+}
+
+body.dark-mode .lead,
+body.dark-mode .text-muted,
+body.dark-mode .small,
+body.dark-mode .fst-italic {
+    color: #b0b0b0 !important;
+}
+
+/* Modo oscuro: fondo translúcido para el contenedor de detalle */
+body.dark-mode #contenedorDetalle {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 24px #0002;
+    padding: 2rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Modo oscuro: fondo translúcido para cada producto del carrito */
+body.dark-mode .card-producto {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #f1f1f1 !important;
+    box-shadow: 0 0 12px rgba(0,0,0,0.18);
+    border: 1.5px solid #a44b5a !important;
+}
+
+/* Modo oscuro para el header y navbar */
+body.dark-mode .navbar,
+body.dark-mode nav.navbar {
+    background: linear-gradient(to right, #232323, #3b4045, #232323) !important;
+    color: #f1f1f1 !important;
+    border-bottom: 1.5px solid #a44b5a !important;
+}
+
+body.dark-mode .navbar-brand span,
+body.dark-mode .navbar-brand,
+body.dark-mode .nav-link,
+body.dark-mode .navbar-nav .nav-link,
+body.dark-mode .navbar-toggler,
+body.dark-mode .navbar-toggler-icon {
+    color: #ffb6c1 !important;
+    fill: #ffb6c1 !important;
+    background: transparent !important;
+}
+
+body.dark-mode .nav-link:hover,
+body.dark-mode .nav-link:focus {
+    color: #fff !important;
+    text-decoration: underline;
+}
+
+body.dark-mode .navbar-brand img {
+    filter: brightness(0.85) contrast(1.1);
+}
+
+body.dark-mode .dropdown-menu {
+    background: #232323 !important;
+    color: #f1f1f1 !important;
+    border: 1px solid #a44b5a !important;
+}
+
+body.dark-mode .dropdown-divider {
+    border-color: #a44b5a !important;
+}
+
+body.dark-mode #saludo-usuario,
+body.dark-mode #nombreUsuario {
+    color: #ffb6c1 !important;
+}
+
+body.dark-mode .navbar .badge,
+body.dark-mode .navbar .bg-danger {
+    background: #a44b5a !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+/* Modo oscuro: textos blancos en intro-responsable */
+body.dark-mode .intro-responsable h2,
+body.dark-mode .intro-responsable p {
+    color: #fff !important;
+}
+
+/* Modo oscuro: Botón "Ver más" con tono más bajo que "Agregar al carrito" */
+body.dark-mode .btn-outline-light {
+    background: #a44b5a !important;      /* Tono más bajo que #6b1e25 */
+    color: #fff !important;
+    border-color: #a44b5a !important;
+    transition: background 0.2s, color 0.2s;
+}
+
+body.dark-mode .btn-outline-light:hover,
+body.dark-mode .btn-outline-light:focus {
+    background: #6b1e25 !important;      /* Igual que "Agregar al carrito" */
+    color: #fff !important;
+    border-color: #6b1e25 !important;
 }
 
 
