@@ -305,7 +305,7 @@ main.container {
 }
 
 main.container h2 {
-  color: var(--cat-texto);
+  color: #6b1e25;
   font-weight: 700;
   margin-bottom: 1.5rem;
   text-align: center; /* Asegura el título centrado */

@@ -184,71 +184,81 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
+    // 1. Define carrito como variable global al inicio del script
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
     function actualizarIndicadorCarrito() {
       const indicador = document.getElementById("carritoIndicator");
       if (!indicador) return;
-      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
       indicador.classList.toggle("d-none", carrito.length === 0);
     }
 
     function renderCarrito() {
-       const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
       const usuario = localStorage.getItem("usuario");
       const contenedor = document.getElementById("contenedorCarrito");
+      const opcionesPago = document.getElementById("opcionesPago");
       contenedor.innerHTML = "";
-      
 
       if (carrito.length === 0) {
         contenedor.innerHTML = ` 
-            <div class="alert alert-info text-center">
-              🛒 Tu carrito está vacío. ¡Agrega productos desde el catálogo!
-            </div>
-          `;
+          <div class="alert alert-info text-center">
+            🛒 Tu carrito está vacío. ¡Agrega productos desde el catálogo!
+          </div>
+        `;
         opcionesPago.innerHTML = "";
         return;
       }
 
-      let total = 0;
+      let totalSinIVA = 0;
 
       carrito.forEach((item, index) => {
+        const maxStock = item.PROD_STOCK || 1;
         const cantidad = item.CANTIDAD || 0;
         const precio = item.PROD_PRECIO || 0;
         const subtotal = precio * cantidad;
-        total += subtotal;
+        totalSinIVA += subtotal;
+
+        const btnMenosDisabled = cantidad <= 1 ? 'disabled' : '';
+        const btnMasDisabled = ''; // Siempre habilitado
 
         const card = document.createElement("div");
         card.className = "card-producto";
         card.innerHTML = `
-            <div class="text-center me-md-4 mb-3 mb-md-0">
-              <img src="${item.PROD_IMG}" alt="${item.PROD_NOMBRE}" />
+          <div class="text-center me-md-4 mb-3 mb-md-0">
+            <img src="${item.PROD_IMG}" alt="${item.PROD_NOMBRE}" />
+          </div>
+          <div class="info-producto">
+            <h5>${item.PROD_NOMBRE}</h5>
+            <p class="precio">$${precio.toFixed(2)}</p>
+            <div class="acciones-carrito mt-2 mb-2 d-flex justify-content-center align-items-center flex-wrap">
+              <button class="btn btn-outline-danger btn-sm me-2" onclick="modificarCantidad(${index}, -1)" ${btnMenosDisabled}>-</button>
+              <span class="mx-2">${cantidad}</span>
+              <button class="btn btn-outline-success btn-sm ms-2" onclick="modificarCantidad(${index}, 1)" ${btnMasDisabled}>+</button>
             </div>
-            <div class="info-producto">
-              <h5>${item.PROD_NOMBRE}</h5>
-              <p class="precio">$${precio.toFixed(2)}</p>
-              <div class="acciones-carrito mt-2 mb-2 d-flex justify-content-center align-items-center flex-wrap">
-                <button class="btn btn-outline-danger btn-sm me-2" onclick="modificarCantidad(${index}, -1)">-</button>
-                <span class="mx-2">${cantidad}</span>
-                <button class="btn btn-outline-success btn-sm ms-2" onclick="modificarCantidad(${index}, 1)">+</button>
-              </div>
-              <p class="subtotal">Subtotal: $${subtotal.toFixed(2)}</p>
-              <button class="btn btn-outline-danger btn-sm btn-eliminar" onclick="eliminarProducto(${index})">🗑 Eliminar</button>
-            </div>
-          `;
+            <p class="subtotal">Subtotal: $${subtotal.toFixed(2)}</p>
+            <button class="btn btn-outline-danger btn-sm btn-eliminar" onclick="eliminarProducto(${index})">🗑 Eliminar</button>
+          </div>
+        `;
         contenedor.appendChild(card);
       });
 
+      const iva = totalSinIVA * 0.15;
+      const totalConIVA = totalSinIVA + iva;
+
       opcionesPago.innerHTML = ` 
-          <h4>Total: $${total.toFixed(2)}</h4>
+        <div class="text-end">
+          <div><strong>Subtotal:</strong> $${totalSinIVA.toFixed(2)}</div>
+          <div><strong>IVA (15%):</strong> $${iva.toFixed(2)}</div>
+          <div><strong>Total:</strong> $${totalConIVA.toFixed(2)}</div>
           ${usuario
-          ? '<button class="btn btn-success fw-semibold mt-3" onclick="mostrarModalPago()">💳 Pagar</button>'
-          : '<a href="../Cuenta/Login.html" class="btn btn-warning fw-semibold mt-3">🔐 Inicia sesión para pagar</a>'
-        }
-        `;
+            ? '<button class="btn btn-success fw-semibold mt-3" onclick="mostrarModalPago()">💳 Pagar</button>'
+            : '<a href="../Cuenta/Login.html" class="btn btn-warning fw-semibold mt-3">🔐 Inicia sesión para pagar</a>'
+          }
+        </div>
+      `;
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
       const usuario = localStorage.getItem("usuario");
       const contenedor = document.getElementById("contenedorCarrito");
       const opcionesPago = document.getElementById("opcionesPago");
@@ -264,37 +274,19 @@
         .then(res => res.text())
         .then(data => document.getElementById('footer-container').innerHTML = data);
 
-
-
-      window.modificarCantidad = (index, cambio) => {
-        const cantidadActual = carrito[index].CANTIDAD;
-        const stockDisponible = carrito[index].PROD_STOCK;
-
-        // Calcula la nueva cantidad
+      // 2. Haz que modificarCantidad y eliminarProducto usen la variable global carrito
+      window.modificarCantidad = function(index, cambio) {
+        let cantidadActual = carrito[index].CANTIDAD;
         let nuevaCantidad = cantidadActual + cambio;
+        if (nuevaCantidad < 1) nuevaCantidad = 1;
 
-        // Si la nueva cantidad es menor que 1, no la cambiamos (no se permite cantidades negativas o cero)
-        if (nuevaCantidad <= 0) {
-          nuevaCantidad = 1; // Establece la cantidad mínima a 1
-        }
-
-        // Si la nueva cantidad supera el stock, la fijamos al stock máximo disponible
-        if (nuevaCantidad > stockDisponible) {
-          nuevaCantidad = stockDisponible; // Establece la cantidad al stock disponible
-        }
-
-        // Actualizamos la cantidad en el carrito
         carrito[index].CANTIDAD = nuevaCantidad;
-
-        // Guardar los cambios en el carrito en localStorage
         localStorage.setItem("carrito", JSON.stringify(carrito));
-
-        // Volver a renderizar el carrito y actualizar el indicador
         renderCarrito();
         actualizarIndicadorCarrito();
       };
 
-      window.eliminarProducto = (index) => {
+      window.eliminarProducto = function(index) {
         carrito.splice(index, 1);
         localStorage.setItem("carrito", JSON.stringify(carrito));
         renderCarrito();
@@ -356,7 +348,7 @@
                     throw new Error(errorData.Message || 'Error desconocido');
                   });
                 }
-                return response.json();
+                return response.json;
               })
               .then(responseData => {
                 let mensaje = "✅ ¡Gracias por tu compra!";
