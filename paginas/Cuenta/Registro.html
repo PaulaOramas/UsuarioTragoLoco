@@ -214,7 +214,7 @@
         sectorSelect.appendChild(opt);
       }
     }
-    document.getElementById("formRegistro").addEventListener("submit", function (e) {
+    document.getElementById("formRegistro").addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const form = e.target;
@@ -236,8 +236,8 @@
       const email = form.email.value.trim();
       const telefono = form.telefono.value.trim();
       const direccion = form.direccion.value.trim();
-      const ciudad = form.ciudad.value;  // Obtener la ciudad seleccionada
-      const sector = form.sector.value;
+      const ciudad = form.ddlCiudad.value;  // Obtener la ciudad seleccionada
+      const sector = form.ddlSector.value;
       const genero = form.genero.value;
 
       // Asignar el código de ciudad según la ciudad seleccionada
@@ -257,66 +257,81 @@
           codigoCiudad = ""; // Si no se selecciona una ciudad válida
       }
 
-      // 1. Llamada a la API de Usuario para registrar los datos personales
-      fetch('https://eltragolocorest.runasp.net/api/Usuario', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          USU_CI_RUC: cedula,
-          USU_NOMBRE: nombre,
-          USU_EMAIL: email,
-          USU_TELEFONO: telefono,
-          USU_DIRECCION: direccion,
-          USU_CIUDAD: ciudad,
-          USU_SECTOR_ENTREGA: sector,
-          USU_GENERO: genero,
-          USU_FECHA_REGISTRO: new Date().toISOString(), // Fecha actual en formato ISO
-          USU_ESTADO: "activo" // Estado del usuario (puedes ajustarlo si es necesario)
+      // Construir objeto DTO para el usuario
+      const usuarioDTO = {
+        USU_CI_RUC: cedula,
+        USU_NOMBRE: nombre,
+        USU_EMAIL: email,
+        USU_TELEFONO: telefono,
+        USU_DIRECCION: direccion,
+        USU_CIUDAD: codigoCiudad,
+        USU_SECTOR_ENTREGA: sector,
+        USU_GENERO: genero,
+        USU_FECHA_REGISTRO: new Date().toISOString(), // Fecha actual en formato ISO
+        USU_ESTADO: "ACT", // Estado del usuario
+      };
+      // ** Imprimir los datos del usuario que se van a enviar **
+      console.log("Datos del usuario que se enviarán:");
+      console.log({
+        USU_CI_RUC: cedula,
+        USU_NOMBRE: nombre,
+        USU_EMAIL: email,
+        USU_TELEFONO: telefono,
+        USU_DIRECCION: direccion,
+        USU_CIUDAD: codigoCiudad,
+        USU_SECTOR_ENTREGA: sector,
+        USU_GENERO: genero,
+        USU_FECHA_REGISTRO: new Date().toISOString(),
+        USU_ESTADO: "ACT", // Estado del usuario
 
-
-        })
-      })
-        .then(res => {
-          if (!res.ok) throw new Error('Error al registrar los datos del usuario.');
-          return res.json();
-        })
-        .then(data => {
-          // 2. Si los datos del usuario fueron registrados exitosamente, registrar la cédula y contraseña
-          fetch('https://eltragolocorest.runasp.net/api/Login/Insertar', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              USU_CI_RUC: cedula,
-              PASSWORD: contrasena,
-              LOG_ROL: "CLI" // Rol por defecto (Cliente)
-            })
-          })
-            .then(res => {
-              if (!res.ok) throw new Error('Error al registrar la cédula y contraseña.');
-              return res.json();
-            })
-            .then(data => {
-              // Registro exitoso
-              localStorage.setItem("usuario", nombre); // Guardar el nombre del usuario en localStorage
-              alert("✅ Registro exitoso. Ahora puedes iniciar sesión.");
-              window.location.href = "Login.html"; // Redirigir a la página de login
-            })
-            .catch(err => {
-              console.error(err);
-              mensajeError.textContent = "❌ " + err.message;
-              mensajeError.style.display = "block";
-            });
-        })
-        .catch(err => {
-          console.error(err);
-          mensajeError.textContent = "❌ " + err.message;
-          mensajeError.style.display = "block";
+      });
+      try {
+        // Llamada a la API de Usuario para registrar los datos personales
+        const response = await fetch('https://eltragolocorest.runasp.net/api/Usuario', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(usuarioDTO)
         });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText || 'Error al registrar los datos del usuario');
+        }
+
+        // Si el registro de usuario fue exitoso, ahora registrar la contraseña
+        const contrasenaDTO = {
+          USU_CI_RUC: cedula,
+          PASSWORD: contrasena,
+          LOG_ROL: "CLI" // Rol por defecto (Cliente)
+        };
+        console.log("Datos de la contraseña que se enviarán:");
+        console.log(contrasenaDTO);
+
+        const responseContrasena = await fetch('https://eltragolocorest.runasp.net/api/Login/Insertar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(contrasenaDTO)
+        });
+
+        if (!responseContrasena.ok) {
+          const errorText = await responseContrasena.text();
+          throw new Error(errorText || 'Error al registrar la contraseña');
+        }
+
+        // Si todo fue exitoso, mostrar mensaje y redirigir al login
+        alert("✅ Usuario registrado exitosamente. Ahora puedes iniciar sesión.");
+        form.reset();
+        window.location.href = "Login.html"; // Redirigir a la página de login
+      } catch (error) {
+        // Si hay algún error, mostrar mensaje
+        alert("❌ " + error.message);
+      }
     });
+
 
 
     // Cargar Header y Footer después que DOM esté listo
