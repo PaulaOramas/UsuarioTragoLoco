@@ -509,7 +509,7 @@ main.container p.text-muted {
 /* Título del producto en negro */
 .card-title {
     font-size: 1.3rem;
-    color: #f8f9fa;
+    color: #343a40;
     margin-top: 0.5rem;
 }
 .card-text.fw-bold {
