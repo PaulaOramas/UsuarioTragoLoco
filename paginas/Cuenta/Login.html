@@ -18,7 +18,6 @@
         /* Fondo de la página */
         .fondo-crema {
             background-color: #f8f9fa;
-            /* Crema */
         }
 
         /* Estilo del botón "Ver detalles" */
@@ -37,24 +36,19 @@
         /* Estilo de la tabla con fondo morado */
         .table-dark {
             background-color: #6b1e25;
-            /* Color morado */
             color: white;
-            /* Asegurando que el texto dentro de los th sea blanco */
         }
 
         /* Estilo de los encabezados dentro de la tabla */
         .table-dark th {
             background-color: #6b1e25;
-            /* Fondo morado */
             color: white !important;
-            /* Asegurando que el texto sea blanco */
             font-weight: bold;
         }
 
         /* Estilo de las celdas */
         .table-dark td {
             border: 1px solid #6b1e25;
-            /* Borde en color morado */
         }
 
         /* Títulos de la página */
@@ -120,7 +114,6 @@
         /* Mejora en la apariencia de las filas de la tabla */
         .table-striped tbody tr:hover {
             background-color: #eaeaea;
-            /* Color más claro al pasar el mouse */
         }
 
         /* Estilo del contenedor de login */
@@ -266,7 +259,7 @@
                 .then(res => res.text())
                 .then(data => {
                     document.getElementById('header-container').innerHTML = data;
-                    cargarFacturas(); // Llamamos la función para cargar las facturas
+                    actualizarUIUsuario(); // Llamamos la función después de cargar el header
                 });
 
             fetch('../../paginas/Shared/Footer.html')
@@ -274,35 +267,139 @@
                 .then(data => {
                     document.getElementById('footer-container').innerHTML = data;
                 });
+
+            // Verificar si el usuario está logueado
+            const usuarioActual = localStorage.getItem('usuario');
+
+            // Si el usuario está logueado, mostrar sus datos
+            if (usuarioActual) {
+                mostrarPerfil(usuarioActual);
+            } else {
+                mostrarLogin();
+            }
         });
 
-        // Cargar las facturas
-        function cargarFacturas() {
-            const usuarioActual = localStorage.getItem('usuario');
-            if (!usuarioActual) {
-                alert("Usuario no encontrado");
-                return;
-            }
+        // Mostrar perfil del usuario
+        function mostrarPerfil(usuario) {
+            // Llamar a la API para obtener los datos del usuario
+            fetch(`https://eltragolocorest.runasp.net/api/Usuario?ciRuc=${usuario}`)
+                .then(response => response.json())
+                .then(usuarioData => {
+                    // Cambiar la ciudad según el valor que venga de la API
+                    let ciudad = "Desconocido";
+                    switch (usuarioData.USU_CIUDAD) {
+                        case "UIO":
+                            ciudad = "Quito";
+                            break;
+                        case "CUE":
+                            ciudad = "Cuenca";
+                            break;
+                        case "GYE":
+                            ciudad = "Guayaquil";
+                            break;
+                    }
 
+                    // Mostrar los datos del perfil en la página
+                    const contenidoPerfil = document.getElementById('contenidoPerfil');
+                    contenidoPerfil.innerHTML = `
+                    <h2 class="mb-3 sub-titulo">Datos Personales</h2>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <p><strong>Cédula/RUC:</strong> <span id="usu_ci_ruc">${usuarioData.USU_CI_RUC}</span></p>
+                            <p><strong>Nombre:</strong> <span id="usu_nombre">${usuarioData.USU_NOMBRE}</span></p>
+                            <p><strong>Email:</strong> <span id="usu_email">${usuarioData.USU_EMAIL}</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Teléfono:</strong> <span id="usu_telefono">${usuarioData.USU_TELEFONO}</span></p>
+                            <p><strong>Dirección:</strong> <span id="usu_direccion">${usuarioData.USU_DIRECCION}</span></p>
+                            <p><strong>Ciudad:</strong> <span id="usu_ciudad">${ciudad}</span></p>
+                        </div>
+                    </div>
+
+                    <h2 class="mb-3 sub-titulo">Mis Facturas</h2>
+                    <table class="table table-bordered table-striped align-middle text-center">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="text-white">ID Factura</th>
+                                <th class="text-white">Fecha</th>
+                                <th class="text-white">Total</th>
+                                <th class="text-white">Detalles</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-facturas">
+                            <!-- Aquí se llenarán las filas -->
+                        </tbody>
+                    </table>
+
+                    <button id="btnCerrarSesion" class="btn btn-danger">Cerrar Sesión</button>
+                `;
+
+                    // Cargar las facturas
+                    cargarFacturas(usuario);
+
+                    // Añadir evento para cerrar sesión
+                    document.getElementById('btnCerrarSesion').addEventListener('click', cerrarSesion);
+                })
+                .catch(err => {
+                    console.error("Error al obtener los datos del usuario:", err);
+                    alert("❌ Error al obtener los datos del usuario.");
+                });
+        }
+
+        // Cargar las facturas del usuario
+        function cargarFacturas(usuario) {
             // Obtener las facturas del API
             fetch(`https://eltragolocorest.runasp.net/api/Factura`)
                 .then(response => response.json())
                 .then(facturas => {
-                    // Filtrar las facturas por ciRuc
-                    const facturasUsuario = facturas.filter(factura => factura.USU_CI_RUC === usuarioActual);
+                    // Filtrar las facturas por ciRuc y por estado "PAG"
+                    const facturasUsuario = facturas.filter(factura => factura.USU_CI_RUC === usuario && factura.FAC_ESTADO === 'PAG');
 
-                    const tbody = document.getElementById('tabla-facturas');
+                    // Verificar si la tabla existe, sino crearla
+                    let tbody = document.getElementById('tabla-facturas');
+
+                    // Si la tabla no existe, crearla
+                    if (!tbody) {
+                        // Crear la tabla
+                        const table = document.createElement('table');
+                        table.className = 'table table-bordered table-striped align-middle text-center';
+
+                        // Crear el encabezado de la tabla
+                        const thead = document.createElement('thead');
+                        thead.className = 'table-dark';
+                        thead.innerHTML = `
+                        <tr>
+                            <th class="text-white">ID Factura</th>
+                            <th class="text-white">Fecha</th>
+                            <th class="text-white">Total</th>
+                            <th class="text-white">Detalles</th>
+                        </tr>
+                    `;
+                        table.appendChild(thead);
+
+                        // Crear el cuerpo de la tabla
+                        tbody = document.createElement('tbody');
+                        tbody.id = 'tabla-facturas';
+                        table.appendChild(tbody);
+
+                        // Agregar la tabla al contenedor
+                        const contenidoPerfil = document.getElementById('contenidoPerfil');
+                        contenidoPerfil.appendChild(table);
+                    }
+
                     tbody.innerHTML = "";  // Limpiar tabla antes de mostrar las nuevas facturas
 
+                    // Crear una fila para cada factura
                     facturasUsuario.forEach(factura => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
-                            <td>${factura.FAC_FECHA.split('T')[0]}</td>
-                            <td>$${factura.FAC_TOTAL.toFixed(2)}</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-morado" onclick="mostrarDetalle('${factura.FAC_NUMERO}')">Ver detalles</button>
-                            </td>
-                        `;
+                        <td>${factura.FAC_NUMERO}</td>
+                        <td>${factura.FAC_FECHA.split('T')[0]}</td>
+                        <td>$${factura.FAC_TOTAL.toFixed(2)}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-morado" onclick="mostrarDetalle('${factura.FAC_NUMERO}')">Ver detalles</button>
+                        </td>
+                    `;
                         tbody.appendChild(tr);
                     });
                 })
@@ -332,11 +429,11 @@
 
                                 const tr = document.createElement('tr');
                                 tr.innerHTML = `
-                                    <td>${producto.PROD_NOMBRE}</td>
-                                    <td>${detalle.DXF_CANTIDAD}</td>
-                                    <td>$${detalle.DXF_PRECIO_UNIT.toFixed(2)}</td>
-                                    <td>$${subtotal.toFixed(2)}</td>
-                                `;
+                                <td>${producto.PROD_NOMBRE}</td>
+                                <td>${detalle.DXF_CANTIDAD}</td>
+                                <td>$${detalle.DXF_PRECIO_UNIT.toFixed(2)}</td>
+                                <td>$${subtotal.toFixed(2)}</td>
+                            `;
                                 tbodyDetalle.appendChild(tr);
                             })
                             .catch(err => console.error(err));
@@ -345,9 +442,9 @@
                     // Mostrar el total de la factura
                     const trTotal = document.createElement('tr');
                     trTotal.innerHTML = `
-                        <td colspan="3" class="text-end">Total:</td>
-                        <td>$${totalFactura.toFixed(2)}</td>
-                    `;
+                    <td colspan="3" class="text-end">Total:</td>
+                    <td>$${totalFactura.toFixed(2)}</td>
+                `;
                     tbodyDetalle.appendChild(trTotal);
 
                     const modal = new bootstrap.Modal(document.getElementById('modalDetalleFactura'));
@@ -359,41 +456,81 @@
                 });
         }
 
+        // Mostrar formulario de login
+        function mostrarLogin() {
+            const contenidoPerfil = document.getElementById('contenidoPerfil');
+            contenidoPerfil.innerHTML = `
+            <div class="login-container">
+                <h2 class="mb-4 text-dark">Iniciar Sesión</h2>
+                <form id="formLogin" novalidate>
+                    <div class="mb-3 text-start">
+                        <label for="cedula" class="form-label">Cédula:</label>
+                        <input type="text" id="cedula" name="cedula" class="form-control" required maxlength="13"
+                            pattern="\\d{10,13}" title="Ingrese una cédula o RUC válida" aria-describedby="cedulaHelp" />
+                        <div id="cedulaHelp" class="form-text">Ingrese su cédula o RUC (10-13 dígitos).</div>
+                    </div>
+
+                    <div class="mb-3 text-start">
+                        <label for="contrasena" class="form-label">Contraseña:</label>
+                        <input type="password" id="contrasena" name="contrasena" class="form-control" required aria-describedby="contrasenaHelp" />
+                        <div id="contrasenaHelp" class="form-text">Ingrese su contraseña.</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-morado w-100 fw-bold">Ingresar</button>
+
+                    <div class="mt-3">
+                        <span>¿No tienes cuenta?</span>
+                        <a href="Registro.html" class="text-decoration-none fw-bold text-danger">Regístrate aquí</a>
+                    </div>
+                </form>
+            </div>
+        `;
+
+            // Manejo del formulario de login
+            const form = document.getElementById("formLogin");
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault(); // Evitar el envío del formulario
+
+                const cedula = form.cedula.value.trim();
+                const contrasena = form.contrasena.value.trim();
+
+                if (cedula && contrasena) {
+                    // Llamada a la API para validar el login
+                    fetch(`https://eltragolocorest.runasp.net/api/Login/Usuario/${cedula}`)
+                        .then(res => {
+                            if (!res.ok) throw new Error("Usuario no encontrado");
+                            return res.json();
+                        })
+                        .then(data => {
+                            // Verificar la contraseña
+                            if (data.PASSWORD === contrasena) {
+                                // Login exitoso
+                                localStorage.setItem("usuario", cedula); // Guardar usuario en localStorage
+                                window.location.reload(); // Recargar la página para mostrar los datos del usuario
+                            } else {
+                                alert("❌ Usuario o contraseña incorrectos.");
+                                document.getElementById("contrasena").value = ''; // Limpiar el campo contraseña
+                                document.getElementById("contrasena").focus();
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            alert("❌ Error al autenticar. Verifique sus credenciales.");
+                            document.getElementById("contrasena").value = ''; // Limpiar el campo contraseña
+                            document.getElementById("contrasena").focus();
+                        });
+                } else {
+                    alert("Por favor, ingrese su cédula y contraseña.");
+                }
+            });
+        }
+
         // Cerrar sesión
         function cerrarSesion() {
             localStorage.removeItem("usuario");
             window.location.reload();
         }
-
-    </script>
-
-    <script>
-        // filepath: incluir en todas las páginas o en un JS común
-        document.addEventListener("DOMContentLoaded", function () {
-            const switchInput = document.getElementById('darkModeSwitch');
-            const label = document.getElementById('darkModeLabel');
-            const body = document.body;
-
-            // Aplica el modo guardado
-            if (localStorage.getItem('dark-mode') === 'enabled') {
-                body.classList.add('dark-mode');
-                if (switchInput) switchInput.checked = true;
-                if (label) label.textContent = "Modo Claro";
-            }
-
-            if (switchInput) {
-                switchInput.addEventListener('change', function () {
-                    body.classList.toggle('dark-mode');
-                    if (body.classList.contains('dark-mode')) {
-                        localStorage.setItem('dark-mode', 'enabled');
-                        label.textContent = "Modo Claro";
-                    } else {
-                        localStorage.setItem('dark-mode', 'disabled');
-                        label.textContent = "Modo Oscuro";
-                    }
-                });
-            }
-        });
     </script>
 
 </body>
