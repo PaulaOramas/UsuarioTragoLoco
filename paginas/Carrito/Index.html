@@ -260,9 +260,29 @@
       }
 
       window.modificarCantidad = (index, cambio) => {
-        carrito[index].CANTIDAD += cambio;
-        if (carrito[index].CANTIDAD <= 0) carrito.splice(index, 1);
+        const cantidadActual = carrito[index].CANTIDAD;
+        const stockDisponible = carrito[index].PROD_STOCK;
+
+        // Calcula la nueva cantidad
+        let nuevaCantidad = cantidadActual + cambio;
+
+        // Si la nueva cantidad es menor que 1, no la cambiamos (no se permite cantidades negativas o cero)
+        if (nuevaCantidad <= 0) {
+          nuevaCantidad = 1; // Establece la cantidad mínima a 1
+        }
+
+        // Si la nueva cantidad supera el stock, la fijamos al stock máximo disponible
+        if (nuevaCantidad > stockDisponible) {
+          nuevaCantidad = stockDisponible; // Establece la cantidad al stock disponible
+        }
+
+        // Actualizamos la cantidad en el carrito
+        carrito[index].CANTIDAD = nuevaCantidad;
+
+        // Guardar los cambios en el carrito en localStorage
         localStorage.setItem("carrito", JSON.stringify(carrito));
+
+        // Volver a renderizar el carrito y actualizar el indicador
         renderCarrito();
         actualizarIndicadorCarrito();
       };
